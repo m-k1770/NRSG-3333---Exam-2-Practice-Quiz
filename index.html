@@ -1,0 +1,1940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NRSG 3333 - Exam 2 Study Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F6F7FA;
+  --bg-alt:#EBEEF3;
+  --card:#FFFFFF;
+  --ink:#1C2333;
+  --ink-soft:#525B6E;
+  --ink-faint:#8991A3;
+  --line:#E1E5EC;
+
+  --primary:#25335C;      /* deep indigo navy - headers, brand */
+  --primary-dark:#161E3B;
+  --primary-pale:#E7EAF3;
+
+  --gold:#7C58D1;         /* violet - checkpoint / interactive accent */
+  --gold-dark:#5E3FAE;
+  --gold-pale:#EFE9FB;
+
+  --red:#C2402F;          /* critical */
+  --red-pale:#FBE5E1;
+
+  --amber:#B9821A;        /* caution */
+  --amber-pale:#FAF0DB;
+
+  --blue:#2C74B3;         /* info */
+  --blue-pale:#E4EFF8;
+
+  --green:#2E8F5C;        /* tip / reassurance */
+  --green-pale:#E3F3EA;
+
+  --teal:#1E8A99;         /* flash cards theme */
+  --teal-pale:#DFF1F3;
+
+  /* per-tab theme colors */
+  --t-resp:#2C74B3;
+  --t-chest:#1B84A6;
+  --t-cvad:#7C58D1;
+  --t-airway:#D9822B;
+  --t-wound:#9B4FBD;
+  --t-drugs:#C23B6E;
+  --t-priority:#C2402F;
+  --t-flash:#1E8A99;
+
+  --t-resp-pale:#E4EFF8;
+  --t-chest-pale:#DEF0F3;
+  --t-cvad-pale:#EFE9FB;
+  --t-airway-pale:#FBEAD6;
+  --t-wound-pale:#F2E7F7;
+  --t-drugs-pale:#FBE6ED;
+
+  --sidebar-w:246px;
+
+  --radius:14px;
+  --shadow: 0 2px 10px rgba(28,35,51,0.07), 0 1px 2px rgba(28,35,51,0.06);
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:'Inter',sans-serif;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{
+  font-family:'Source Serif 4',serif;
+  color:var(--primary-dark);
+  margin:0 0 .4em 0;
+  font-weight:600;
+  letter-spacing:-0.01em;
+}
+.mono{font-family:'IBM Plex Mono',monospace;}
+a{color:var(--primary);}
+p{margin:0 0 .8em 0;}
+ul,ol{margin:.3em 0 .9em 0; padding-left:1.3em;}
+li{margin-bottom:.3em;}
+
+/* ---------- minimal top accent bar ---------- */
+.top-accent-bar{
+  width:100%;height:5px;
+  background:linear-gradient(90deg,var(--primary) 0%,var(--primary) 55%,var(--gold) 100%);
+}
+
+/* ---------- App shell: sidebar + content ---------- */
+.app-shell{display:flex;align-items:flex-start;min-height:100vh;}
+
+.sidebar{
+  width:var(--sidebar-w);flex-shrink:0;
+  background:var(--primary-dark);
+  position:fixed;top:0;left:0;height:100vh;overflow-y:auto;
+  z-index:80;padding:20px 0 24px 0;
+  border-right:1px solid rgba(255,255,255,.06);
+}
+.sidebar-brand{
+  padding:6px 22px 18px 22px;margin-bottom:6px;
+  border-bottom:1px solid rgba(255,255,255,.09);
+}
+.sidebar-brand .eyebrow{
+  font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;color:#9AA3C4;margin-bottom:5px;
+}
+.sidebar-brand .name{font-family:'Source Serif 4',serif;color:#fff;font-size:18px;font-weight:600;line-height:1.25;}
+.sidebar-nav{display:flex;flex-direction:column;gap:3px;padding:12px 12px 0 12px;}
+.nav-item{
+  display:flex;align-items:center;gap:12px;
+  background:none;border:none;border-left:3px solid transparent;
+  color:#B7BEDA;text-align:left;cursor:pointer;
+  padding:11px 12px;border-radius:0 10px 10px 0;
+  font-family:'Inter',sans-serif;font-size:13.5px;font-weight:600;
+  transition:background .15s,color .15s;width:100%;
+}
+.nav-item:hover{background:rgba(255,255,255,.06);color:#fff;}
+.nav-item .nav-icon{
+  width:30px;height:30px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+}
+.nav-item .nav-icon svg{width:16px;height:16px;}
+.nav-item .nav-text{line-height:1.3;}
+.nav-item .nav-text .sub{display:block;font-size:10.5px;font-weight:500;color:#8891B3;margin-top:1px;}
+.nav-item.active{background:rgba(255,255,255,.09);color:#fff;}
+.nav-item.active .nav-text .sub{color:#C7CCE6;}
+
+/* per-tab active left-border + icon tint, matched to theme color */
+.nav-item[data-tab="resp"] .nav-icon{background:var(--t-resp);}
+.nav-item[data-tab="chesttube"] .nav-icon{background:var(--t-chest);}
+.nav-item[data-tab="cvad"] .nav-icon{background:var(--t-cvad);}
+.nav-item[data-tab="airway"] .nav-icon{background:var(--t-airway);}
+.nav-item[data-tab="wound"] .nav-icon{background:var(--t-wound);}
+.nav-item[data-tab="drugs"] .nav-icon{background:var(--t-drugs);}
+.nav-item[data-tab="priority"] .nav-icon{background:var(--t-priority);}
+.nav-item[data-tab="flash"] .nav-icon{background:var(--t-flash);}
+.nav-item[data-tab="resp"].active{border-left-color:var(--t-resp);}
+.nav-item[data-tab="chesttube"].active{border-left-color:var(--t-chest);}
+.nav-item[data-tab="cvad"].active{border-left-color:var(--t-cvad);}
+.nav-item[data-tab="airway"].active{border-left-color:var(--t-airway);}
+.nav-item[data-tab="wound"].active{border-left-color:var(--t-wound);}
+.nav-item[data-tab="drugs"].active{border-left-color:var(--t-drugs);}
+.nav-item[data-tab="priority"].active{border-left-color:var(--t-priority);}
+.nav-item[data-tab="flash"].active{border-left-color:var(--t-flash);}
+
+.content-area{margin-left:var(--sidebar-w);flex:1;min-width:0;width:100%;}
+
+@media (max-width:900px){
+  .app-shell{display:block;}
+  .sidebar{
+    position:static;width:100%;height:auto;
+    display:flex;flex-direction:row;overflow-x:auto;padding:10px 10px;
+    border-right:none;border-bottom:1px solid rgba(255,255,255,.08);
+  }
+  .sidebar-brand{display:none;}
+  .sidebar-nav{flex-direction:row;padding:0;gap:6px;}
+  .nav-item{
+    flex-direction:column;text-align:center;min-width:96px;
+    border-left:none;border-bottom:3px solid transparent;border-radius:10px 10px 0 0;gap:6px;
+  }
+  .nav-item .nav-text .sub{display:none;}
+  .nav-item[data-tab="resp"].active{border-bottom-color:var(--t-resp);}
+  .nav-item[data-tab="chesttube"].active{border-bottom-color:var(--t-chest);}
+  .nav-item[data-tab="cvad"].active{border-bottom-color:var(--t-cvad);}
+  .nav-item[data-tab="airway"].active{border-bottom-color:var(--t-airway);}
+  .nav-item[data-tab="wound"].active{border-bottom-color:var(--t-wound);}
+  .nav-item[data-tab="drugs"].active{border-bottom-color:var(--t-drugs);}
+  .nav-item[data-tab="priority"].active{border-bottom-color:var(--t-priority);}
+  .nav-item[data-tab="flash"].active{border-bottom-color:var(--t-flash);}
+  .content-area{margin-left:0;}
+}
+
+/* ---------- Top banner (dark navy) ---------- */
+header.top{
+  background:linear-gradient(135deg,var(--primary-dark),var(--primary));
+  position:relative;overflow:hidden;
+}
+header.top::before{
+  content:"";position:absolute;width:340px;height:340px;border-radius:50%;
+  background:radial-gradient(circle, rgba(124,88,209,0.35), transparent 70%);
+  top:-160px;right:60px;pointer-events:none;
+}
+header.top::after{
+  content:"";position:absolute;width:220px;height:220px;border-radius:50%;
+  background:radial-gradient(circle, rgba(30,138,153,0.28), transparent 70%);
+  bottom:-130px;left:8%;pointer-events:none;
+}
+.header-inner{
+  max-width:1180px;margin:0 auto;padding:30px 32px 34px 32px;position:relative;
+  display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap;
+}
+.brand-eyebrow{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:#B9A8EA;font-weight:600;margin-bottom:4px;
+}
+h1.title{font-size:28px;margin-bottom:2px;color:#fff;}
+.subtitle{color:#C6CBE6;font-size:14.5px;max-width:660px;}
+
+main{max-width:1180px;margin:0 auto;padding:30px 32px 80px 32px;}
+.panel{display:none;animation:fade .25s ease;}
+.panel.active{display:block;}
+@keyframes fade{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
+
+/* per-tab accent scoping - cascades to every element below that references var(--accent) */
+#resp{--accent:var(--t-resp);--accent-pale:var(--t-resp-pale);}
+#chesttube{--accent:var(--t-chest);--accent-pale:var(--t-chest-pale);}
+#cvad{--accent:var(--t-cvad);--accent-pale:var(--t-cvad-pale);}
+#airway{--accent:var(--t-airway);--accent-pale:var(--t-airway-pale);}
+#wound{--accent:var(--t-wound);--accent-pale:var(--t-wound-pale);}
+#drugs{--accent:var(--t-drugs);--accent-pale:var(--t-drugs-pale);}
+#priority{--accent:var(--t-priority);--accent-pale:var(--red-pale);}
+#flash{--accent:var(--t-flash);--accent-pale:var(--teal-pale);}
+
+/* module intro - flat, no glossy blobs; accent carried via left border + eyebrow */
+.mod-hero{
+  background:linear-gradient(135deg,var(--primary-dark),var(--primary));
+  color:#E9ECF6;border-radius:var(--radius);padding:26px 28px;margin-bottom:26px;
+  border-left:6px solid var(--accent, var(--gold));
+}
+.mod-hero .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent, #B9A8EA);font-weight:600;margin-bottom:6px;}
+.mod-hero h2{color:#fff;font-size:26px;margin-bottom:8px;}
+.mod-hero p{color:#D4D9EC;max-width:760px;margin-bottom:0;font-size:14.5px;}
+
+/* section blocks */
+section.block{margin-bottom:12px;}
+.block h3{
+  font-size:20px;border-bottom:2px solid var(--accent, var(--line));padding-bottom:8px;margin-bottom:14px;
+  display:flex;align-items:center;gap:10px;
+}
+.block h3 .tag{
+  font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:600;
+  background:var(--accent-pale, var(--primary-pale));color:var(--primary-dark);padding:3px 8px;border-radius:20px;
+  letter-spacing:.04em;
+}
+.block h4{font-size:16px;color:var(--ink);margin-top:18px;}
+
+.card{
+  background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent, var(--line));
+  border-radius:var(--radius);
+  padding:18px 20px;box-shadow:var(--shadow);margin-bottom:16px;
+}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;}
+@media (max-width:820px){.grid2,.grid3{grid-template-columns:1fr;}}
+
+table{width:100%;border-collapse:collapse;font-size:14px;margin-bottom:10px;}
+th{
+  text-align:left;background:var(--accent-pale, var(--primary-pale));color:var(--primary-dark);
+  font-family:'IBM Plex Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.04em;
+  padding:9px 10px;border-bottom:2px solid var(--accent, #C7CEE5);
+}
+td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top;}
+tr:last-child td{border-bottom:none;}
+.data-table-wrap{overflow-x:auto;}
+
+/* callouts - distinct high-contrast colors so key info pops */
+.callout{border-radius:10px;padding:14px 16px;margin:14px 0;font-size:14.5px;border-left:5px solid;}
+.callout.high{background:var(--red-pale);border-color:var(--red);}
+.callout.caution{background:var(--amber-pale);border-color:var(--amber);}
+.callout.info{background:var(--blue-pale);border-color:var(--blue);}
+.callout.tip{background:var(--green-pale);border-color:var(--green);}
+.callout .label{
+  font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.06em;display:block;margin-bottom:5px;
+}
+.callout.high .label{color:var(--red);}
+.callout.caution .label{color:var(--amber);}
+.callout.info .label{color:var(--blue);}
+.callout.tip .label{color:var(--green);}
+
+/* pill list */
+.pill-row{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0;}
+.pill{background:var(--bg-alt);border:1px solid var(--line);border-radius:20px;padding:6px 13px;font-size:13px;font-family:'IBM Plex Mono',monospace;}
+
+/* checkpoint trigger button - inline, integrated after each topic */
+.cp-trigger{
+  display:inline-flex;align-items:center;gap:7px;
+  background:var(--accent-pale, var(--gold-pale));color:var(--accent, var(--gold-dark));border:1.5px solid var(--accent, var(--gold));
+  padding:9px 16px;border-radius:9px;font-weight:700;font-size:13.5px;cursor:pointer;
+  margin:4px 0 30px 0;font-family:'Inter',sans-serif;transition:background .15s,color .15s;
+}
+.cp-trigger:hover{background:var(--accent, var(--gold));color:#fff;}
+.cp-trigger .badge{
+  background:var(--accent, var(--gold));color:#fff;border-radius:50%;width:18px;height:18px;
+  display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-family:'IBM Plex Mono',monospace;
+}
+.cp-trigger:hover .badge{background:#fff;color:var(--accent, var(--gold-dark));}
+
+/* ---------- modal ---------- */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(32,42,51,.6);
+  display:none;align-items:center;justify-content:center;padding:20px;z-index:300;
+  backdrop-filter:blur(2px);
+}
+.modal-overlay.open{display:flex;}
+.modal{
+  background:#fff;border-radius:16px;max-width:580px;width:100%;
+  max-height:88vh;display:flex;flex-direction:column;overflow:hidden;
+  box-shadow:0 24px 70px rgba(0,0,0,.35);
+}
+.modal-head{
+  background:var(--primary-dark);color:#fff;padding:18px 22px 16px 22px;position:relative;
+}
+.modal-head .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#C3BCE8;margin-bottom:4px;}
+.modal-head h4{color:#fff;margin:0;font-size:18px;}
+.modal-close{
+  position:absolute;top:14px;right:16px;background:rgba(255,255,255,.12);border:none;color:#fff;
+  width:30px;height:30px;border-radius:50%;font-size:16px;cursor:pointer;line-height:1;
+}
+.modal-close:hover{background:rgba(255,255,255,.24);}
+.modal-dots{display:flex;gap:6px;margin-top:12px;}
+.modal-dots .d{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.28);}
+.modal-dots .d.current{background:var(--gold);}
+.modal-dots .d.done{background:#C3BCE8;}
+.modal-body{padding:20px 22px;overflow-y:auto;flex:1;}
+.modal-body .q-count{
+  font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-faint);
+  text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;
+}
+.modal-body .q-text{font-size:16px;font-weight:600;color:var(--ink);margin-bottom:14px;}
+.modal-opt{
+  display:block;width:100%;text-align:left;background:var(--bg);
+  border:1.5px solid var(--line);color:var(--ink);border-radius:9px;
+  padding:11px 14px;margin-bottom:9px;cursor:pointer;font-size:14.5px;font-family:'Inter',sans-serif;
+  transition:border-color .15s,background .15s;
+}
+.modal-opt:hover:not(:disabled){border-color:var(--primary);}
+.modal-opt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);font-weight:600;}
+.modal-opt.incorrect{background:var(--red-pale);border-color:var(--red);color:var(--red);font-weight:600;}
+.modal-opt:disabled{cursor:default;}
+.modal-feedback{
+  background:var(--blue-pale);border-left:4px solid var(--blue);border-radius:8px;
+  padding:12px 14px;font-size:13.5px;color:var(--ink);margin-top:6px;display:none;
+}
+.modal-feedback.show{display:block;}
+.modal-nav{
+  display:flex;justify-content:space-between;align-items:center;gap:10px;
+  padding:14px 22px;border-top:1px solid var(--line);background:var(--bg);
+}
+.modal-nav .side{display:flex;gap:8px;}
+.nav-btn{
+  background:#fff;border:1.5px solid var(--line);color:var(--ink-soft);border-radius:8px;
+  padding:9px 15px;font-weight:600;font-size:13.5px;cursor:pointer;font-family:'Inter',sans-serif;
+}
+.nav-btn:hover:not(:disabled){border-color:var(--primary);color:var(--primary-dark);}
+.nav-btn:disabled{opacity:.4;cursor:default;}
+.nav-btn.primary{background:var(--primary);border-color:var(--primary);color:#fff;}
+.nav-btn.primary:hover{background:var(--primary-dark);}
+.nav-btn.exit{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.nav-btn.exit:hover{background:var(--red);color:#fff;}
+
+/* flashcards */
+.fc-controls{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;}
+.fc-filter{
+  background:var(--card);border:1px solid var(--line);border-radius:20px;padding:7px 15px;
+  font-size:13px;font-weight:600;cursor:pointer;color:var(--ink-soft);font-family:'Inter',sans-serif;
+}
+.fc-filter.active{background:var(--accent, var(--primary));border-color:var(--accent, var(--primary));color:#fff;}
+.fc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;}
+.flashcard{perspective:1200px;height:170px;cursor:pointer;}
+.flashcard .inner{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d;}
+.flashcard.flipped .inner{transform:rotateY(180deg);}
+.flashcard .face{
+  position:absolute;inset:0;border-radius:12px;padding:16px;
+  backface-visibility:hidden;display:flex;flex-direction:column;
+  box-shadow:var(--shadow);border:1px solid var(--line);
+}
+.flashcard .front{background:var(--card);}
+.flashcard .back{background:var(--primary-dark);color:#F3E7ED;transform:rotateY(180deg);}
+.flashcard .cat{font-family:'IBM Plex Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--gold-dark);margin-bottom:8px;}
+.flashcard .back .cat{color:var(--gold);}
+.flashcard .qtext{font-weight:600;font-size:14.5px;flex:1;overflow-y:auto;}
+.flashcard .atext{font-size:13.5px;flex:1;overflow-y:auto;}
+.flashcard .flip-hint{font-size:10.5px;color:var(--ink-faint);text-align:right;}
+.flashcard .back .flip-hint{color:#C3BCE8;text-align:right;}
+
+footer{
+  text-align:center;padding:30px 20px;color:var(--ink-faint);font-size:12.5px;
+  border-top:1px solid var(--line);margin-top:20px;
+}
+</style>
+</head>
+<body>
+
+<div class="app-shell">
+
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="eyebrow">NRSG 3333</div>
+      <div class="name">Exam 2<br>Study Guide</div>
+    </div>
+    <nav class="sidebar-nav" id="tabNav">
+      <button class="nav-item active" data-tab="resp">
+        <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M12,2 C10,7 8,9 8,13 C8,16 10,18 12,18 C14,18 16,16 16,13 C16,9 14,7 12,2 Z" fill="#fff"/></svg></span>
+        <span class="nav-text">Respiratory<span class="sub">Foundations</span></span>
+      </button>
+      <button class="nav-item" data-tab="chesttube">
+        <span class="nav-icon"><svg viewBox="-12 -12 24 24"><rect x="-2" y="-10" width="4" height="16" rx="2" fill="#fff"/><circle cx="0" cy="9" r="3.2" fill="none" stroke="#fff" stroke-width="2"/></svg></span>
+        <span class="nav-text">Chest Tubes<span class="sub">Drainage systems</span></span>
+      </button>
+      <button class="nav-item" data-tab="cvad">
+        <span class="nav-icon"><svg viewBox="-12 -12 24 24"><circle cx="0" cy="-4" r="4.5" fill="none" stroke="#fff" stroke-width="2"/><line x1="0" y1="0" x2="0" y2="10" stroke="#fff" stroke-width="2"/></svg></span>
+        <span class="nav-text">CVAD<span class="sub">Central access</span></span>
+      </button>
+      <button class="nav-item" data-tab="airway">
+        <span class="nav-icon"><svg viewBox="-12 -12 24 24"><path d="M-8,-2 C-8,-7 8,-7 8,-2 L8,2 C8,6 -8,6 -8,2 Z" fill="none" stroke="#fff" stroke-width="2"/><line x1="0" y1="6" x2="0" y2="10" stroke="#fff" stroke-width="2"/></svg></span>
+        <span class="nav-text">Airway Mgmt<span class="sub">OPA / NPA / ETT / trach</span></span>
+      </button>
+      <button class="nav-item" data-tab="wound">
+        <span class="nav-icon"><svg viewBox="-12 -12 24 24"><rect x="-9" y="-6" width="18" height="12" rx="3" fill="none" stroke="#fff" stroke-width="2"/><line x1="0" y1="-6" x2="0" y2="6" stroke="#fff" stroke-width="2"/><line x1="-9" y1="0" x2="9" y2="0" stroke="#fff" stroke-width="2"/></svg></span>
+        <span class="nav-text">Wound Care<span class="sub">Pressure injury</span></span>
+      </button>
+      <button class="nav-item" data-tab="drugs">
+        <span class="nav-icon"><svg viewBox="-12 -12 24 24"><rect x="-11" y="-6" width="22" height="12" rx="6" ry="6" fill="none" stroke="#fff" stroke-width="2"/><line x1="0" y1="-6" x2="0" y2="6" stroke="#fff" stroke-width="2"/></svg></span>
+        <span class="nav-text">Drug Guide<span class="sub">Medication reference</span></span>
+      </button>
+      <button class="nav-item" data-tab="priority">
+        <span class="nav-icon"><svg viewBox="-12 -12 24 24"><rect x="-1.6" y="-8" width="3.2" height="10" rx="1.6" fill="#fff"/><circle cx="0" cy="5.5" r="2" fill="#fff"/></svg></span>
+        <span class="nav-text">Priority<span class="sub">Interventions</span></span>
+      </button>
+      <button class="nav-item" data-tab="flash">
+        <span class="nav-icon"><svg viewBox="-12 -12 24 24"><rect x="-7" y="-9" width="14" height="10" rx="2" fill="#fff" opacity=".55"/><rect x="-8" y="-5" width="14" height="10" rx="2" fill="#fff"/></svg></span>
+        <span class="nav-text">Flash Cards<span class="sub">Quick review</span></span>
+      </button>
+    </nav>
+  </aside>
+
+  <div class="content-area">
+
+<header class="top">
+  <div class="top-accent-bar"></div>
+  <div class="header-inner">
+    <div>
+      <div class="brand-eyebrow">NRSG 3333 &middot; Comprehensive Assessment &amp; Advanced Nursing Skills</div>
+      <h1 class="title">NRSG 3333 - Exam 2 Study Guide</h1>
+      <div class="subtitle">Respiratory Foundations &middot; Chest Tubes &amp; Drainage &middot; CVADs &middot; Airway Management &middot; Wound &amp; Pressure Injury Care. Click any <b>Checkpoint</b> button to test yourself on that topic.</div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ============================================================ RESPIRATORY FOUNDATIONS ============================================================ -->
+<section class="panel active" id="resp">
+  <div class="mod-hero">
+    <div class="eyebrow">Foundations</div>
+    <h2>Respiratory Foundations</h2>
+    <p>Mechanics of breathing, gas exchange &amp; perfusion, pulmonary embolism, pneumothorax, pleural effusion, and ventilator modes.</p>
+  </div>
+
+  <section class="block">
+    <h3>Mechanics &amp; Control of Breathing <span class="tag">inhalation / exhalation</span></h3>
+    <p>Inhalation: the diaphragm contracts/flattens and intercostals lift the ribs, expanding the thoracic cavity and dropping intrathoracic pressure below atmospheric &mdash; air rushes in. Exhalation: the diaphragm relaxes, the cavity recoils, pressure rises, and air leaves.</p>
+    <div class="callout info">
+      <span class="label">Why this matters clinically</span>
+      This negative-pressure principle is exactly why an open chest wound or a disconnected chest tube is dangerous &mdash; the vacuum is lost and the lung can collapse.
+    </div>
+    <h4>What actually drives your breathing?</h4>
+    <p>Central chemoreceptors (brainstem) and peripheral chemoreceptors (aortic arch/carotid bodies) respond mainly to <b>CO&#8322; and pH</b>, not low oxygen. Rising CO&#8322; (hypercapnia) is the main stimulus to breathe faster/deeper.</p>
+    <div class="pill-row">
+      <span class="pill">Tachypnea = fast</span>
+      <span class="pill">Bradypnea = slow</span>
+      <span class="pill">Apnea = absent</span>
+      <span class="pill">Dyspnea = air hunger</span>
+      <span class="pill">Hyperventilation = blows off CO2</span>
+      <span class="pill">Hypoventilation = retains CO2</span>
+    </div>
+    <div class="data-table-wrap">
+    <table>
+      <tr><th>Sound</th><th>Timing</th><th>Cause</th></tr>
+      <tr><td>Rhonchi (coarse crackles)</td><td>Expiration</td><td>Mucus in large airways</td></tr>
+      <tr><td>Rales (fine crackles)</td><td>Inspiration</td><td>Fluid in alveoli (HF, pneumonia)</td></tr>
+      <tr><td>Wheeze</td><td>Either, often exp.</td><td>Narrowed airway (asthma, bronchoconstriction)</td></tr>
+      <tr><td>Stridor</td><td>Inspiration only</td><td>Upper airway/tracheal obstruction</td></tr>
+      <tr><td>Pleural rub</td><td>Insp &amp; exp</td><td>Inflamed pleura rubbing together</td></tr>
+    </table>
+    </div>
+    <button class="cp-trigger" data-cp="cp-breathing"><span class="badge">?</span> Checkpoint: Mechanics of Breathing</button>
+  </section>
+
+  <section class="block">
+    <h3>Gas Exchange, Perfusion &amp; Pulmonary Embolism</h3>
+    <p>Ventilation moves air; perfusion moves blood. A <b>V/Q mismatch</b> (a mismatch between the two) is the root cause of hypoxia in conditions like pulmonary embolism and pulmonary edema.</p>
+    <div class="grid2">
+      <div class="card">
+        <h4 style="margin-top:0;">PE signs/symptoms</h4>
+        <ul><li>Sudden dyspnea</li><li>Sudden anxiety / sense of "impending doom"</li><li>Pleuritic chest pain</li><li>Tachycardia</li><li>Hemoptysis</li><li>Diaphoresis, lightheadedness</li><li>Leg swelling/pain if DVT present</li></ul>
+      </div>
+      <div class="card">
+        <h4 style="margin-top:0;">PE diagnostics &amp; treatment</h4>
+        <ul><li><b>CT pulmonary angiography (CTPA)</b> &mdash; gold standard</li><li><b>D-dimer</b> &mdash; screens for clot</li><li><b>Ultrasound</b> &mdash; checks legs for DVT</li><li><b>V/Q scan</b> &mdash; compares air movement to blood flow</li></ul>
+        <p style="margin-top:8px;">Treatment: anticoagulants, thrombolytics, IVC filter, oxygen, pain control.</p>
+      </div>
+    </div>
+    <button class="cp-trigger" data-cp="cp-pe"><span class="badge">?</span> Checkpoint: Gas Exchange &amp; PE</button>
+  </section>
+
+  <section class="block">
+    <h3>Pneumothorax Types</h3>
+    <ul>
+      <li><b>Simple/spontaneous:</b> air enters the pleural space through a ruptured bleb; no trauma.</li>
+      <li><b>Traumatic:</b> from blunt/penetrating chest injury or an iatrogenic puncture (thoracentesis, subclavian line).</li>
+      <li><b>Open ("sucking chest wound"):</b> a chest wall defect lets air move freely in/out with each breath &mdash; produces a sucking sound and mediastinal flutter.</li>
+      <li><b>Tension pneumothorax:</b> one-way valve effect &mdash; air enters but can't escape, pressure builds, and the mediastinum shifts <i>away</i> from the affected side, compressing the heart/great vessels.</li>
+    </ul>
+    <div class="callout high">
+      <span class="label">Life-threatening</span>
+      Tension pneumothorax red flags: tracheal deviation away from the affected side, absent breath sounds on that side, hyperresonance to percussion, hypotension, JVD, severe respiratory distress. Needle decompression (large-bore needle, 2nd ICS midclavicular line) is the emergency bridge to chest tube placement.
+    </div>
+    <button class="cp-trigger" data-cp="cp-pneumo"><span class="badge">?</span> Checkpoint: Pneumothorax</button>
+  </section>
+
+  <section class="block">
+    <h3>Pleural Effusion &amp; Assessment Findings</h3>
+    <p>Abnormal fluid collection between the visceral and parietal pleura (normal is only 5&ndash;15 mL of lubricating fluid).</p>
+    <div class="grid2">
+      <div class="card">
+        <h4 style="margin-top:0;">Transudate vs. exudate</h4>
+        <ul>
+          <li><b>Transudate</b> &mdash; clear fluid, usually from heart failure (pressure/oncotic imbalance; pleura not diseased)</li>
+          <li><b>Exudate</b> &mdash; from inflammation/infection/malignancy (bronchogenic carcinoma is the most common malignant cause)</li>
+        </ul>
+        <p>Confirmed by chest X-ray/CT or thoracentesis, which also relieves dyspnea and provides fluid for analysis.</p>
+      </div>
+      <div class="card" style="margin-bottom:0;">
+        <h4 style="margin-top:0;">Percussion / auscultation quick-reference</h4>
+        <div class="data-table-wrap">
+        <table>
+          <tr><th>Condition</th><th>Percussion</th><th>Trachea</th><th>Breath sounds</th></tr>
+          <tr><td>Normal</td><td>Resonant</td><td>Midline</td><td>Vesicular</td></tr>
+          <tr><td>Pleural effusion</td><td>Dull to flat</td><td>Shifted away from fluid</td><td>Decreased/absent</td></tr>
+          <tr><td>Pneumothorax</td><td>Hyperresonant</td><td>Shifted away (tension)</td><td>Decreased/absent</td></tr>
+          <tr><td>Lobar pneumonia</td><td>Dull</td><td>Midline</td><td>Bronchial over area</td></tr>
+        </table>
+        </div>
+      </div>
+    </div>
+    <button class="cp-trigger" data-cp="cp-effusion"><span class="badge">?</span> Checkpoint: Pleural Effusion &amp; Assessment</button>
+  </section>
+
+  <section class="block">
+    <h3>Ventilator Modes <span class="tag">recognition-level</span></h3>
+    <div class="data-table-wrap">
+    <table>
+      <tr><th>Mode</th><th>Key idea</th></tr>
+      <tr><td>Controlled mechanical ventilation</td><td>Every breath fully machine-delivered; no patient effort</td></tr>
+      <tr><td>Assist-control (A/C)</td><td>Set number of machine breaths; also assists any patient-triggered breath to the full set volume</td></tr>
+      <tr><td>SIMV</td><td>Set number of full machine breaths; patient can breathe spontaneously between them</td></tr>
+      <tr><td>PEEP</td><td>Keeps pressure in the lungs at end-expiration to prevent alveolar collapse</td></tr>
+      <tr><td>CPAP</td><td>Continuous positive pressure throughout the cycle for a spontaneously breathing patient</td></tr>
+      <tr><td>BiPAP</td><td>Noninvasive; independent inspiratory/expiratory pressures via mask; common for severe COPD or sleep apnea</td></tr>
+    </table>
+    </div>
+    <button class="cp-trigger" data-cp="cp-vent"><span class="badge">?</span> Checkpoint: Ventilator Modes</button>
+  </section>
+</section>
+
+<!-- ============================================================ CHEST TUBES ============================================================ -->
+<section class="panel" id="chesttube">
+  <div class="mod-hero">
+    <div class="eyebrow">Skills</div>
+    <h2>Chest Tubes &amp; Drainage Systems</h2>
+    <p>Restoring negative intrathoracic pressure &mdash; system types, setup, ongoing assessment, troubleshooting, removal, and documentation.</p>
+  </div>
+
+  <section class="block">
+    <h3>Chest Drainage Systems &amp; the 3 Chambers</h3>
+    <p>Chest tubes drain air, blood, or fluid from the pleural space (or mediastinum) and restore the negative pressure that keeps the lung inflated. Indications: pneumothorax, hemothorax, pleural effusion, post-thoracic surgery.</p>
+    <div class="data-table-wrap">
+    <table>
+      <tr><th>System</th><th>How it works</th><th>Notes</th></tr>
+      <tr><td>Traditional water seal (wet suction)</td><td>3 chambers: collection, water seal, wet suction control</td><td>Intermittent bubbling = normal; needs sterile fluid in 2 chambers</td></tr>
+      <tr><td>Dry suction water seal</td><td>Collection + water-seal chamber + dry suction regulator dial</td><td>Most common (e.g., Atrium); quieter; indicator shows adequate suction</td></tr>
+      <tr><td>Dry suction one-way valve</td><td>Mechanical one-way valve, no water seal</td><td>Works even if knocked over; good for ambulatory patients</td></tr>
+    </table>
+    </div>
+    <ul>
+      <li><b>Collection chamber:</b> where fluid drainage accumulates; mark date/time and level each shift.</li>
+      <li><b>Water-seal chamber:</b> filled to the <b>2-cm line</b>; one-way valve so air/fluid can leave the chest but can't re-enter. <b>Tidaling</b> confirms the system is connected and functioning.</li>
+      <li><b>Suction control:</b> dial (dry) or water column (wet) that limits negative pressure &mdash; typically <b>&minus;20 cm H&#8322;O</b> unless ordered otherwise.</li>
+    </ul>
+    <div class="callout tip">
+      <span class="label">Remember</span>
+      Intermittent bubbling in the water seal is normal (especially early in a pneumothorax); <b>continuous</b> bubbling means an air leak somewhere in the system or at the insertion site.
+    </div>
+    <button class="cp-trigger" data-cp="cp-ctsystems"><span class="badge">?</span> Checkpoint: Drainage Systems &amp; Chambers</button>
+  </section>
+
+  <section class="block">
+    <h3>Setup &amp; Bedside Readiness</h3>
+    <div class="grid2">
+      <div class="card">
+        <h4 style="margin-top:0;">Initial bedside setup</h4>
+        <ol>
+          <li>Hand hygiene; verify the order (suction vs. water seal only)</li>
+          <li>Fill water-seal chamber to the 2-cm line with sterile water</li>
+          <li>Connect patient tubing; keep the unit <b>below chest level</b></li>
+          <li>Connect wall suction, set device dial, increase wall suction until indicator shows adequate suction</li>
+          <li>Confirm no dependent loops/kinks; apply occlusive dressing; assess for tidaling</li>
+        </ol>
+      </div>
+      <div class="card" style="margin-bottom:0;">
+        <h4 style="margin-top:0;">Always at the bedside</h4>
+        <p>Two rubber-tipped clamps, petroleum/Vaseline gauze, sterile 4x4 dressings, occlusive dressing/waterproof tape, a small container of sterile water or saline. If ambulating, these travel with the patient in a bag on the IV pole.</p>
+      </div>
+    </div>
+    <button class="cp-trigger" data-cp="cp-ctsetup"><span class="badge">?</span> Checkpoint: Setup &amp; Bedside Readiness</button>
+  </section>
+
+  <section class="block">
+    <h3>Ongoing Assessment (Q-shift &amp; PRN)</h3>
+    <ul>
+      <li>Respiratory status: RR, work of breathing, SpO&#8322;, lung sounds, pain/splinting</li>
+      <li>Insertion site/dressing: clean, dry, occlusive; check for <b>subcutaneous emphysema</b> (crepitus)</li>
+      <li>Water seal at the 2-cm mark, system upright and below chest</li>
+      <li>Tidaling present? Air leak (none/intermittent/continuous)?</li>
+      <li>Drainage color/character/amount &mdash; mark and total; report bright-red surges or rates &gt;150&ndash;200 mL/hr (adult)</li>
+      <li>Tubing free of kinks, no dependent loops, no milking/stripping unless ordered</li>
+    </ul>
+    <div class="callout high">
+      <span class="label">Never</span>
+      "Strip" or "milk" the tubing without an order &mdash; it creates dangerously high pressure that can cause a tension pneumothorax.
+    </div>
+    <button class="cp-trigger" data-cp="cp-ctassess"><span class="badge">?</span> Checkpoint: Ongoing Assessment</button>
+  </section>
+
+  <section class="block">
+    <h3>Troubleshooting</h3>
+    <div class="data-table-wrap">
+    <table>
+      <tr><th>Problem</th><th>What to do</th></tr>
+      <tr><td>Continuous bubbling (air leak)</td><td>Briefly clamp near the chest &mdash; if bubbling stops, leak is at insertion site; if it continues, move the clamp toward the device to isolate a tubing/connection leak.</td></tr>
+      <tr><td>No tidaling</td><td>Lung may have re-expanded OR the tubing is obstructed/kinked. Check tubing, confirm water-seal level, assess patient/CXR.</td></tr>
+      <tr><td>System tipped over</td><td>Set upright, let fluid settle, recheck the 2-cm water seal &mdash; replace the unit if the seal is compromised.</td></tr>
+      <tr><td>Accidental disconnection from the device</td><td><b>Emergency</b>: place the patient end of the tubing into ~2 cm of sterile water for a temporary water seal, then reconnect/replace and notify the provider.</td></tr>
+      <tr><td>Chest tube pulled out of the patient</td><td>Apply a sterile occlusive dressing taped on 3 sides (vents air, prevents tension pneumothorax), assess for distress, call provider STAT.</td></tr>
+      <tr><td>Sudden bright-red drainage (&gt;200 mL/hr)</td><td>May indicate vascular injury requiring surgical repair &mdash; get vitals, notify provider immediately.</td></tr>
+      <tr><td>Drainage suddenly stops (first 24 hrs)</td><td>Suspect a clot or dependent loop. Check kinks, reposition upright, ensure system below chest.</td></tr>
+    </table>
+    </div>
+    <div class="callout high">
+      <span class="label">Call the provider emergently for</span>
+      Sudden &uarr; drainage, new/worsening respiratory distress, tracheal deviation, hypoxia, rapidly expanding subcutaneous emphysema, a persistent unexplained continuous air leak, or device failure/accidental removal.
+    </div>
+    <button class="cp-trigger" data-cp="cp-cttrouble"><span class="badge">?</span> Checkpoint: Troubleshooting</button>
+  </section>
+
+  <section class="block">
+    <h3>Assisting with Insertion &amp; Removal</h3>
+    <div class="grid2">
+      <div class="card">
+        <h4 style="margin-top:0;">Nursing role during insertion</h4>
+        <ul>
+          <li>Obtain/analyze vitals and SpO&#8322;; focused respiratory assessment</li>
+          <li>Verify allergies and review meds raising bleeding risk (NSAIDs, warfarin, aspirin) plus labs (H&amp;H, INR)</li>
+          <li>After insertion: confirm placement by CXR, assess breath sounds/dyspnea, ensure dressing intact</li>
+        </ul>
+        <div class="callout caution" style="margin-bottom:0;"><span class="label">Trauma alert</span>Notify the provider if initial chest tube output is &gt;1500 mL at once or &gt;200 mL/hr &mdash; may indicate a vascular injury needing surgery.</div>
+      </div>
+      <div class="card" style="margin-bottom:0;">
+        <h4 style="margin-top:0;">Removal readiness &amp; steps</h4>
+        <p>Improved respiratory status, symmetric chest rise/fall, bilateral breath sounds, decreased drainage, no air leak, improved CXR.</p>
+        <ol>
+          <li>Premedicate ~30&ndash;60 min prior; position semi/high-Fowler's</li>
+          <li>Patient takes a deep breath and holds it (or Valsalva) during removal</li>
+          <li>Sterile occlusive dressing applied immediately, taped airtight on all sides</li>
+        </ol>
+      </div>
+    </div>
+    <button class="cp-trigger" data-cp="cp-ctremoval"><span class="badge">?</span> Checkpoint: Insertion Support &amp; Removal</button>
+  </section>
+
+  <section class="block">
+    <h3>Documentation</h3>
+    <p>Each shift, chart: tube type/location and system type; suction setting vs. device indicator; water-seal level and system position; full respiratory assessment; tidaling and air-leak status; drainage color/character/amount and running total; site/dressing condition and crepitus status; mobility/safety measures; education; provider notifications.</p>
+    <div class="callout tip">
+      <span class="label">Sample chart entry</span>
+      "24F R lateral CT to disposable dry-suction water-seal drain. Order &minus;20 cmH&#8322;O; dial set, bellows at indicator. Water seal 2 cm; unit upright/below chest. Tidaling present; no air leak noted. Drainage serosanguineous 75 mL/8 hr; total 450 mL. Site CDI; no crepitus."
+    </div>
+    <button class="cp-trigger" data-cp="cp-ctdoc"><span class="badge">?</span> Checkpoint: Documentation</button>
+  </section>
+</section>
+
+<!-- ============================================================ CVAD ============================================================ -->
+<section class="panel" id="cvad">
+  <div class="mod-hero">
+    <div class="eyebrow">Devices &middot; Module 4</div>
+    <h2>Central Venous Access Devices</h2>
+    <p>Types of CVADs, insertion &amp; placement verification, lumens, securement &amp; dressings, complications, ongoing assessment, and blood sampling technique.</p>
+  </div>
+
+  <section class="block">
+    <h3>Why Central Access Is Needed</h3>
+    <p>CVLs are often placed for emergency venous access in clients requiring fluid resuscitation and hemodynamic monitoring. Many clients who require CVADs are older adults, very young children, or those with chronic health conditions. Common indications include delivery of medication, fluids, and nutrition &mdash; especially for clients requiring <b>long-term therapy</b> or infusion of <b>high-osmolarity solutions and vesicant medications</b> that would damage a peripheral vein.</p>
+    <div class="grid2">
+      <div class="card">
+        <h4 style="margin-top:0;">High-osmolarity examples (&gt;900 mOsm/L)</h4>
+        <ul>
+          <li>TPN &mdash; high glucose concentration (often &gt;10% dextrose) and electrolytes</li>
+          <li>Dextrose 10% &mdash; hypertonic compared to plasma</li>
+          <li>Mannitol 20% &mdash; osmotic diuretic</li>
+          <li>3% Sodium Chloride (hypertonic saline) &mdash; used for hyponatremia, very irritating to veins</li>
+          <li>Chemotherapeutic agents (doxorubicin, vincristine, vinblastine, mitomycin)</li>
+        </ul>
+      </div>
+      <div class="card" style="margin-bottom:0;">
+        <h4 style="margin-top:0;">Non-chemotherapy vesicants</h4>
+        <ul><li>Concentrated potassium chloride</li><li>Calcium chloride</li><li>Diazepam</li><li>Phenytoin (IV push)</li><li>Dopamine</li><li>Norepinephrine</li></ul>
+      </div>
+    </div>
+    <div class="callout high">
+      <span class="label">Before use</span>
+      The insertion of any CVAD is an invasive medical procedure requiring <b>informed consent</b> from the client. All CVADs require radiologic confirmation of placement prior to use &mdash; by <b>fluoroscopy</b> during insertion of a tunneled line, or by <b>X-ray</b> after placement of a non-tunneled line/PICC. Catheter tip location must be documented in the client's medical record.
+    </div>
+    <button class="cp-trigger" data-cp="cp-cvadneed"><span class="badge">?</span> Checkpoint: Why Central Access?</button>
+  </section>
+
+  <section class="block">
+    <h3>Non-Tunneled vs. Tunneled Central Venous Catheters</h3>
+    <div class="grid2">
+      <div class="card">
+        <h4 style="margin-top:0;">Non-Tunneled CVC</h4>
+        <ul>
+          <li><b>Short-term</b> access &mdash; days to weeks</li>
+          <li>Inserted <b>directly into a central vein</b>: internal jugular, subclavian, or femoral</li>
+          <li><b>Higher infection risk</b> &mdash; the insertion site is close to the vein entry</li>
+          <li>Commonly used in ICU or emergency settings</li>
+          <li><b>No cuff</b> to help anchor or reduce infection</li>
+        </ul>
+      </div>
+      <div class="card" style="margin-bottom:0;">
+        <h4 style="margin-top:0;">Tunneled CVC (Hickman, Broviac, Groshong)</h4>
+        <ul>
+          <li><b>Long-term</b> access &mdash; weeks to months, or permanent</li>
+          <li>Inserted through a <b>subcutaneous tunnel</b> before reaching the vein</li>
+          <li><b>Lower infection risk</b> &mdash; bacteria must travel farther to reach the bloodstream</li>
+          <li>Has a <b>Dacron cuff</b> that promotes tissue ingrowth, anchoring the catheter and providing a barrier</li>
+          <li>Uses: dialysis, chemotherapy, TPN, or long-term antibiotic therapy</li>
+          <li>Surgically placed (OR) or by interventional radiology (IR) using <b>fluoroscopy</b>; placement verification is provided by the surgeon or radiologist</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout info">
+      <span class="label">Why it matters for nurses</span>
+      Tunneled vs. non-tunneled status impacts how the catheter is cared for (dressing changes, flushing protocols, infection monitoring), influences the choice of site and securement device, helps determine when the catheter should be removed, and changes patient education &mdash; tunneled CVCs need teaching for home care and signs of infection.
+    </div>
+    <button class="cp-trigger" data-cp="cp-cvadtunnel"><span class="badge">?</span> Checkpoint: Tunneled vs. Non-Tunneled</button>
+  </section>
+
+  <section class="block">
+    <h3>PICC Lines, Implanted Ports &amp; Midlines</h3>
+    <div class="grid2">
+      <div class="card">
+        <h4 style="margin-top:0;">PICC (peripherally inserted central catheter)</h4>
+        <ul>
+          <li>Insertion site: basilic, cephalic, or brachial vein; length ~18&ndash;24 inches</li>
+          <li>Tip location: ends in the <b>superior vena cava</b> &mdash; central circulation</li>
+          <li>Use duration: long-term, up to 6 months</li>
+          <li>Often placed at the bedside with ultrasound guidance</li>
+          <li><b>X-ray required prior to use</b> &mdash; confirms tip placement and rules out pneumothorax</li>
+          <li>Uses: chemotherapy, TPN, long-term antibiotics, frequent blood draws/medications</li>
+          <li>Avoid in clients with ESRD who need vein preservation for a future fistula/graft, or with a history of thrombosis/hypercoagulability</li>
+        </ul>
+      </div>
+      <div class="card" style="margin-bottom:0;">
+        <h4 style="margin-top:0;">Implanted port (Infusaport)</h4>
+        <ul>
+          <li>Reservoir surgically placed under the skin, usually upper chest; catheter tip rests in the SVC</li>
+          <li>Requires a <b>non-coring (Huber) needle</b>, using sterile technique</li>
+          <li>Transparent dressing applied after access; changed per policy (often every 7 days if accessed)</li>
+          <li><b>Power-injectable ports</b> can be identified by 3 tiny raised bumps in a triangle pattern &mdash; safe for high-pressure (power) CT/MRI contrast injections</li>
+          <li>Ports come in single or dual configurations; ALL ports require a non-coring needle</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card" style="margin-bottom:0;">
+      <h4 style="margin-top:0;">Midline catheter (peripheral &mdash; NOT central)</h4>
+      <p>Length ~3&ndash;8 inches; same insertion site as a PICC, but the tip <b>terminates in the upper arm, not beyond the axilla</b> &mdash; it does not enter central circulation. Placed at the bedside with ultrasound. Use duration: intermediate, 1&ndash;4 weeks. Used for IV fluids, antibiotics, and pain medications. <b>Not</b> for vesicants, TPN, or agents needing central dilution. No X-ray required; lower CLABSI risk than a PICC. A midline is chosen when peripheral IV access is difficult or frequent labs are needed, but central access is not required.</p>
+    </div>
+    <button class="cp-trigger" data-cp="cp-cvadpicc"><span class="badge">?</span> Checkpoint: PICC, Ports &amp; Midlines</button>
+  </section>
+
+  <section class="block">
+    <h3>CVAD Summary Chart</h3>
+    <div class="data-table-wrap">
+    <table>
+      <tr><th>Device</th><th>Expected duration</th><th>Site considerations</th><th>Rationale / safety</th></tr>
+      <tr><td>PICC</td><td>Up to 6 months</td><td>Median cubital, cephalic, basilic, or brachial vein with sufficient diameter</td><td>Avoid in ESRD clients needing vein preservation for fistulas/grafts, or those with thrombosis/hypercoagulability history</td></tr>
+      <tr><td>Non-tunneled CVAD</td><td>Days to several weeks</td><td>Subclavian, external/internal jugular, or femoral vein</td><td>Subclavian favored in adults &mdash; decreased risk of catheter-related thrombosis and/or infection</td></tr>
+      <tr><td>External tunneled CVAD (Hickman, Broviac, Groshong)</td><td>Long-term or permanent</td><td>Subclavian/jugular vein, tunneled subcutaneously to an exit site</td><td>Tunnel separates the skin exit site from the vein entry, keeping organisms from entering the bloodstream and helping secure the catheter</td></tr>
+      <tr><td>Implanted port (IVAD)</td><td>Long-term or permanent</td><td>Subclavian/jugular vein connected to a small reservoir pocket, usually below the collarbone</td><td>Surgically placed; accessed with a non-coring needle; usable immediately after placement; least visible, least daily care</td></tr>
+    </table>
+    </div>
+    <button class="cp-trigger" data-cp="cp-cvadsummary"><span class="badge">?</span> Checkpoint: CVAD Summary Chart</button>
+  </section>
+
+  <section class="block">
+    <h3>Lumens &amp; Securement</h3>
+    <div class="grid2">
+      <div class="card">
+        <div class="data-table-wrap">
+        <table>
+          <tr><th>Lumen</th><th>Size</th><th>Typical use</th></tr>
+          <tr><td>Proximal</td><td>18 ga</td><td>Fluids, TPN/lipids, medications</td></tr>
+          <tr><td>Medial</td><td>18 ga</td><td>Medications</td></tr>
+          <tr><td>Distal</td><td>16 ga</td><td>Blood draw, blood administration, CVP monitoring</td></tr>
+        </table>
+        </div>
+        <p style="margin-bottom:0;">When drawing blood from a line with more than one lumen, <b>stop infusions into the other lumens</b> first to prevent contamination or dilution of the sample.</p>
+      </div>
+      <div class="card" style="margin-bottom:0;">
+        <h4 style="margin-top:0;">Securement devices</h4>
+        <p>Every CVAD must be stabilized and secured to the client. Dislodgement and premature removal increase complications such as infection, vessel injury, and treatment delays. Depending on location and device type, a CVAD may be stabilized with <b>sutures</b> or a <b>sutureless device</b> such as a stat-lock.</p>
+      </div>
+    </div>
+    <button class="cp-trigger" data-cp="cp-cvadaccess"><span class="badge">?</span> Checkpoint: Lumens &amp; Securement</button>
+  </section>
+
+  <section class="block">
+    <h3>Dressing Care</h3>
+    <p>A CVAD dressing should always look <b>clean, dry, and occlusive</b>. Maintaining an intact, occlusive dressing is essential to prevent CLABSI. If the dressing becomes loose, wet, or compromised in any way, it must be changed immediately.</p>
+    <div class="callout tip">
+      <span class="label">Bio-patch rule</span>
+      Dressings with an antimicrobial bio-patch are valid for <b>7 days</b>. If no patch is present, the dressing must be changed within <b>3 days</b> and a patch applied.
+    </div>
+    <button class="cp-trigger" data-cp="cp-cvaddressing"><span class="badge">?</span> Checkpoint: Dressing Care</button>
+  </section>
+
+  <section class="block">
+    <h3>Complications &amp; Unexpected Outcomes</h3>
+    <div class="data-table-wrap">
+    <table>
+      <tr><th>Complication</th><th>Recognize</th><th>Nursing action</th></tr>
+      <tr><td>Occlusion (clot or malposition)</td><td>Sluggish/absent blood return; pain or edema at insertion site</td><td>Reposition client, raise arm overhead, cough/deep breathe, or sit up/stand; administer thrombolytics if ordered; never flush against resistance</td></tr>
+      <tr><td>Catheter damage/breakage</td><td>Leaks, tears, pinholes, or drainage after flushing</td><td>Clamp the catheter near the insertion site, cover the break with sterile gauze; use only a manufacturer repair kit; may require removal</td></tr>
+      <tr><td>Infection (CLABSI)</td><td>Redness, edema, drainage, tenderness at site; fever &gt;100.4&deg;F; rising WBC</td><td>Notify provider, anticipate blood cultures &plusmn; a CVAD-tip culture; treat as life-threatening; antibiotics per organism</td></tr>
+      <tr><td>Incorrect/malpositioned placement</td><td>Inadequate blood withdrawal, blood flowing back into tubing, hypotension, dysrhythmias, neck vein distension</td><td>Stop all fluids/medications; anticipate X-ray and EKG; may require repositioning or removal</td></tr>
+      <tr><td>Dislodgement</td><td>Edema at/around the site, coiling of the catheter under the skin, changed external length</td><td>If fully out: cover the site, apply <b>direct manual pressure</b>, call rapid response (risk of air embolus); monitor and anticipate reinsertion</td></tr>
+      <tr><td>Catheter migration</td><td>Local irritation/swelling, inability to aspirate blood, arm/hand edema, distended neck veins, "gurgling" sounds, new dysrhythmias</td><td>Notify the provider; a catheter migrated externally should NOT be readvanced; one migrated internally is retracted by a trained professional</td></tr>
+      <tr><td>Skin erosion</td><td>Skin separation from the exit site, drainage, contusions</td><td>Plan for CVAD removal per order; provide skin care; optimize nutrition; avoid re-accessing a port through the same skin "hole" repeatedly</td></tr>
+      <tr><td>Air embolism</td><td>Sudden dyspnea, continuous coughing, chest pain; neuro symptoms (seizures, LOC change, hemiparesis)</td><td>Call rapid response; ensure hub is not open to air/clamps engaged; give high-flow O2; position <b>left side, head down</b>; begin CPR if indicated</td></tr>
+      <tr><td>Pneumothorax</td><td>Sharp stabbing chest pain worse on inspiration, dyspnea, cyanosis, tachypnea, dry cough</td><td>Call for help/rapid response, stay with patient, give high-flow O2, anticipate chest tube if hypoxic</td></tr>
+      <tr><td>Infiltration/extravasation</td><td>Sponginess, swelling, redness, pain with infusion; no free-flowing IV or blood return</td><td>Stop the infusion, aspirate remaining medication, apply warm/cold compress per policy, notify provider, anticipate antidote and a chest X-ray</td></tr>
+    </table>
+    </div>
+    <button class="cp-trigger" data-cp="cp-cvadcomp"><span class="badge">?</span> Checkpoint: Complications</button>
+  </section>
+
+  <section class="block">
+    <h3>Applying the Nursing Process &amp; Ongoing Assessment</h3>
+    <p>Nurses provide routine care and maintenance of CVADs after insertion, including ongoing assessment of the insertion site/infusion system, dressing changes with catheter stabilization, accessing/de-accessing, flushing and locking (saline and heparin), and blood sampling. The nurse also assesses the ongoing need for a CVL per institutional policy (usually every 24 hours), documents its necessity, and advocates for removal as soon as it is no longer indicated.</p>
+    <div class="callout caution">
+      <span class="label">Always heparin lock</span>
+      A port must always be heparin locked prior to de-accessing.
+    </div>
+    <h4>Table 4.3a &mdash; Summary of CVAD Assessments (every shift, and PRN)</h4>
+    <div class="data-table-wrap">
+    <table>
+      <tr><th>Assessment</th><th>What it involves</th></tr>
+      <tr><td>Entire infusion system</td><td>Insertion site/surrounding area, securement device, CVAD function, and tip location</td></tr>
+      <tr><td>Device function</td><td>Observe for constant flow, high pressure/occlusion alarms; assess for blood return</td></tr>
+      <tr><td>CVAD dressing</td><td>Clean, intact, and dated</td></tr>
+      <tr><td>Insertion site (through intact dressing)</td><td>Redness, bluish discoloration on darker skin, swelling, drainage, palpable cord; ask about pain, paresthesia, numbness, tingling</td></tr>
+      <tr><td>External catheter length</td><td>Compare to initial placement verification to detect migration/dislodgement</td></tr>
+      <tr><td>Upper arm circumference (PICC only)</td><td>Measure 10 cm above the antecubital fossa each shift; a <b>3-cm increase</b> may indicate DVT-related edema</td></tr>
+      <tr><td>Fluid/medication labeling</td><td>Per agency policy</td></tr>
+      <tr><td>Luer-lock connections</td><td>Secure &mdash; guards against microorganism/air entry and medication leakage</td></tr>
+      <tr><td>Documentation</td><td>Complete assessment charted in the EMR to support quality/safety standards</td></tr>
+    </table>
+    </div>
+    <button class="cp-trigger" data-cp="cp-cvadassess"><span class="badge">?</span> Checkpoint: Ongoing Assessment</button>
+  </section>
+
+  <section class="block">
+    <h3>Blood Sampling from a CVAD</h3>
+    <p>Blood sampling from a CVAD is the responsibility of the registered nurse. Its main advantage is reducing pain and anxiety by avoiding repeated peripheral venipunctures, but it carries risk of infection, occlusion, and inaccurate labs if done improperly.</p>
+    <div class="data-table-wrap">
+    <table>
+      <tr><th>Step</th><th>Rationale</th></tr>
+      <tr><td>Stop infusions into the catheter's lumens</td><td>Prevents substances from interfering with the blood sample</td></tr>
+      <tr><td>Choose the appropriate lumen (largest, or farthest from the heart if staggered exits)</td><td>Blood draw requires a large lumen for accurate sampling</td></tr>
+      <tr><td>Scrub the needleless connector &ge;15 seconds; let dry completely</td><td>Prevents microorganism and substance contamination</td></tr>
+      <tr><td>Attach a prefilled <b>10-mL syringe</b> of preservative-free NS; flush 10&ndash;20 mL; aspirate slowly for blood</td><td>A 10-mL syringe generates lower pressure, preventing lumen rupture/occlusion</td></tr>
+      <tr><td>Clear the dead space: discard method (waste 2&ndash;25 mL) or push-pull method (aspirate/reinfuse 4&ndash;6 mL x4 cycles)</td><td>Removes blood diluted by flush solution; push-pull reduces phlebotomy-associated blood loss</td></tr>
+      <tr><td>Flush thoroughly with 10&ndash;20 mL preservative-free NS afterward</td><td>Prevents occlusion</td></tr>
+    </table>
+    </div>
+    <div class="callout high">
+      <span class="label">Never</span>
+      Use a CVAD infusing parenteral nutrition for blood sampling &mdash; this increases CLABSI risk. If signs of an air embolism occur during the procedure, place the client on the <b>left side in Trendelenburg or left lateral decubitus</b> position, call the rapid response team, and notify the provider.
+    </div>
+    <button class="cp-trigger" data-cp="cp-cvadblood"><span class="badge">?</span> Checkpoint: Blood Sampling</button>
+  </section>
+</section>
+
+<!-- ============================================================ AIRWAY MANAGEMENT ============================================================ -->
+<section class="panel" id="airway">
+  <div class="mod-hero">
+    <div class="eyebrow">Skills</div>
+    <h2>Airway Management</h2>
+    <p>Oropharyngeal, nasopharyngeal, endotracheal, and tracheostomy airway devices and care.</p>
+  </div>
+
+  <section class="block">
+    <h3>Artificial Airway Devices</h3>
+    <div class="data-table-wrap">
+    <table>
+      <tr><th>Device</th><th>Used in</th><th>Key nursing points</th></tr>
+      <tr><td>Oropharyngeal airway (OPA)</td><td><b>Unconscious</b> patients only, no gag reflex</td><td>Curved tip points up toward roof of mouth; sized corner of mouth to angle of jaw/earlobe; remove when gag reflex returns</td></tr>
+      <tr><td>Nasopharyngeal airway (NPA)</td><td>Conscious/semiconscious, intact gag reflex</td><td>Sized nose tip to earlobe; lubricate; avoid in facial trauma/basilar skull fracture/coagulopathy; rotate nares q8&ndash;24h</td></tr>
+      <tr><td>Endotracheal tube (ETT)</td><td>Respiratory failure, anesthesia, trauma</td><td>Cuff 20&ndash;30 cm H&#8322;O q8&ndash;12h; confirm via capnography/CXR/breath sounds; oral care q2&ndash;4h with chlorhexidine</td></tr>
+      <tr><td>Tracheostomy tube</td><td>Long-term airway access</td><td>Outer cannula, inner cannula (removable), obturator (insertion only); ties allow 1&ndash;2 fingers underneath</td></tr>
+    </table>
+    </div>
+    <div class="callout high">
+      <span class="label">NPA contraindications</span>
+      Facial trauma, suspected basilar skull fracture, or coagulopathy &mdash; risk of intracranial placement or significant bleeding.
+    </div>
+    <button class="cp-trigger" data-cp="cp-airwaydevices"><span class="badge">?</span> Checkpoint: Airway Devices</button>
+  </section>
+
+  <section class="block">
+    <h3>Tracheostomy Care Essentials</h3>
+    <div class="grid2">
+      <div class="card">
+        <h4 style="margin-top:0;">Routine care</h4>
+        <ul>
+          <li>Clean/replace inner cannula q8&ndash;12h with sterile technique</li>
+          <li>Clean stoma and change dressing daily/when soiled, circular motion outward</li>
+          <li>Always <b>suction before cleaning</b> the site</li>
+          <li>Never cut regular gauze &mdash; use pre-cut trach gauze only</li>
+        </ul>
+      </div>
+      <div class="card" style="margin-bottom:0;">
+        <h4 style="margin-top:0;">Bedside emergency equipment</h4>
+        <ul>
+          <li>Obturator from the current tube</li>
+          <li>Suction equipment, oxygen source</li>
+          <li>Manual ventilation (bag-valve-mask)</li>
+          <li>Spare trach tube: <b>same size and one size smaller</b></li>
+        </ul>
+      </div>
+    </div>
+    <button class="cp-trigger" data-cp="cp-trachcare"><span class="badge">?</span> Checkpoint: Tracheostomy Care</button>
+  </section>
+
+  <section class="block">
+    <h3>Applying Tanner's Model: Recognizing Airway Emergencies</h3>
+    <p>Tanner's Model (Noticing &rarr; Interpreting &rarr; Responding &rarr; Reflecting) framework applied to airway case studies:</p>
+    <ul>
+      <li><b>Aspiration risk:</b> a patient lying flat drinking thin liquids despite precautions who suddenly coughs and desaturates &mdash; reposition upright, encourage coughing, get help immediately.</li>
+      <li><b>NPA monitoring:</b> increasing blood at the nares plus noisy breathing and falling SpO2 suggests secretions/clots partially obstructing the airway &mdash; report immediately even if unsure.</li>
+      <li><b>Tracheostomy site needing care:</b> redness, crusted secretions, and gurgling breath sounds indicate the site needs suctioning first, then cleaning.</li>
+    </ul>
+    <div class="callout tip">
+      <span class="label">Exam takeaway</span>
+      As a student, "noticing" something is off and reporting it &mdash; even without knowing the exact diagnosis &mdash; is correct clinical judgment.
+    </div>
+    <button class="cp-trigger" data-cp="cp-tanner2"><span class="badge">?</span> Checkpoint: Clinical Judgment Cases</button>
+  </section>
+</section>
+
+<!-- ============================================================ WOUND & PRESSURE INJURY ============================================================ -->
+<section class="panel" id="wound">
+  <div class="mod-hero">
+    <div class="eyebrow">Skin Integrity</div>
+    <h2>Wound Care &amp; Pressure Injuries</h2>
+    <p>Wound classification, healing intention, pressure injury staging, debridement, dressings, and surgical drains.</p>
+  </div>
+
+  <section class="block">
+    <h3>Wound Classification &amp; Healing Intention</h3>
+    <div class="grid2">
+      <div class="card">
+        <h4 style="margin-top:0;">By cause</h4>
+        <ul>
+          <li><b>Surgical:</b> intentional, controlled, sterile &mdash; primary intention</li>
+          <li><b>Traumatic:</b> unplanned, often contaminated &mdash; secondary intention</li>
+          <li><b>Neuropathic/vascular:</b> impaired sensation or circulation</li>
+          <li><b>Pressure:</b> ischemia from unrelieved pressure over a bony prominence</li>
+        </ul>
+      </div>
+      <div class="card" style="margin-bottom:0;">
+        <h4 style="margin-top:0;">Healing by intention</h4>
+        <ul>
+          <li><b>Primary:</b> edges approximated (sutures/staples), minimal tissue loss, fast healing</li>
+          <li><b>Secondary:</b> edges cannot be approximated, heals from base up via granulation</li>
+          <li><b>Tertiary:</b> delayed primary closure &mdash; left open, then surgically closed once clean</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout caution">
+      <span class="label">Test trap</span>
+      Surgical/acute wounds with approximated edges &rarr; sterile technique. Pressure/chronic/open wounds &rarr; clean technique focused on moisture balance and infection prevention.
+    </div>
+    <button class="cp-trigger" data-cp="cp-woundclass"><span class="badge">?</span> Checkpoint: Wound Classification</button>
+  </section>
+
+  <section class="block">
+    <h3>Pressure Injury Staging</h3>
+    <div class="data-table-wrap">
+    <table>
+      <tr><th>Stage</th><th>Description</th></tr>
+      <tr><td>Stage 1</td><td>Nonblanchable erythema of intact skin</td></tr>
+      <tr><td>Stage 2</td><td>Partial-thickness skin loss with exposed dermis; open shallow wound or blister; no slough</td></tr>
+      <tr><td>Stage 3</td><td>Full-thickness skin loss; fat may be visible; does NOT expose bone/tendon/muscle</td></tr>
+      <tr><td>Stage 4</td><td>Full-thickness skin AND tissue loss with exposed bone, tendon, or muscle</td></tr>
+      <tr><td>Unstageable</td><td>Full-thickness loss obscured by slough/eschar &mdash; true depth unknown until debrided</td></tr>
+      <tr><td>Deep tissue pressure injury</td><td>Persistent nonblanchable deep red/maroon/purple discoloration of intact skin, or blood-filled blister</td></tr>
+    </table>
+    </div>
+    <div class="callout high">
+      <span class="label">Never</span>
+      Reverse-stage a pressure injury as it heals, or debride stable, dry, intact heel eschar unless there is infection/drainage.
+    </div>
+    <button class="cp-trigger" data-cp="cp-pistaging"><span class="badge">?</span> Checkpoint: Pressure Injury Staging</button>
+  </section>
+
+  <section class="block">
+    <h3>Wound Tissue Types &amp; Debridement</h3>
+    <div class="grid2">
+      <div class="card">
+        <h4 style="margin-top:0;">Tissue in the wound bed</h4>
+        <ul>
+          <li><b>Eschar:</b> black/brown, dry, leathery &mdash; needs debridement (except stable dry heel eschar)</li>
+          <li><b>Slough:</b> moist yellow/tan/gray dead tissue &mdash; should be removed</li>
+          <li><b>Granulation:</b> red, moist, healthy &mdash; protect, don't disturb</li>
+        </ul>
+      </div>
+      <div class="card" style="margin-bottom:0;">
+        <div class="data-table-wrap">
+        <table>
+          <tr><th>Method</th><th>Note</th></tr>
+          <tr><td>Mechanical</td><td>Non-selective &mdash; can remove healthy tissue</td></tr>
+          <tr><td>Autolytic</td><td>Gentlest/most selective; contraindicated if infected</td></tr>
+          <tr><td>Enzymatic</td><td>Selective &mdash; targets only necrotic tissue</td></tr>
+          <tr><td>Biologic (maggots)</td><td>Selective; reduces bacterial load/odor</td></tr>
+        </table>
+        </div>
+      </div>
+    </div>
+    <div class="callout high">
+      <span class="label">Postoperative drainage alert</span>
+      Drainage exceeding 500 mL within 24 hours should prompt provider notification (possible hemorrhage/dehiscence).
+    </div>
+    <button class="cp-trigger" data-cp="cp-debride"><span class="badge">?</span> Checkpoint: Tissue Types &amp; Debridement</button>
+  </section>
+
+  <section class="block">
+    <h3>Dressing Selection</h3>
+    <div class="data-table-wrap">
+    <table>
+      <tr><th>Dressing</th><th>Best for</th></tr>
+      <tr><td>Transparent film</td><td>Superficial wounds, IV sites, minimal drainage</td></tr>
+      <tr><td>Hydrocolloid</td><td>Partial-thickness/clean Stage 2; promotes autolytic debridement</td></tr>
+      <tr><td>Hydrogel</td><td><b>Dry</b>/necrotic wounds &mdash; adds moisture</td></tr>
+      <tr><td>Alginate</td><td>Heavy exudate or bleeding &mdash; very absorbent</td></tr>
+      <tr><td>Foam</td><td>Moderate-to-heavy drainage; cushions bony prominences</td></tr>
+      <tr><td>Negative pressure wound therapy</td><td>Large surgical/traumatic wounds; NEVER over necrotic tissue or malignancy</td></tr>
+    </table>
+    </div>
+    <div class="callout tip">
+      <span class="label">Quick rule</span>
+      Dry wound &rarr; ADD moisture (hydrogel). Draining wound &rarr; ABSORB moisture (foam/alginate). Clean, healing wound &rarr; MAINTAIN moisture (hydrocolloid/film).
+    </div>
+    <button class="cp-trigger" data-cp="cp-dressing"><span class="badge">?</span> Checkpoint: Dressing Selection</button>
+  </section>
+
+  <section class="block">
+    <h3>Surgical Wound Drains</h3>
+    <div class="data-table-wrap">
+    <table>
+      <tr><th>Drain</th><th>Type</th><th>Key points</th></tr>
+      <tr><td>Penrose</td><td>Open, passive</td><td>Secured with a safety pin; gradually shortened as drainage decreases</td></tr>
+      <tr><td>Jackson-Pratt (JP)</td><td>Closed, gentle negative pressure</td><td>Never touch the open port; holds 50&ndash;100 mL; empty when about half full</td></tr>
+      <tr><td>Hemovac</td><td>Closed, negative pressure</td><td>Similar principle to JP with a larger capacity reservoir</td></tr>
+      <tr><td>Wound VAC / NPWT</td><td>Closed, continuous negative pressure</td><td>Foam dressing promotes granulation tissue and blood flow</td></tr>
+    </table>
+    </div>
+    <div class="callout high">
+      <span class="label">Drain output alert</span>
+      A sudden DECREASE in output from a closed drain (JP/Hemovac) may indicate a clot or kink obstructing flow &mdash; notify the provider.
+    </div>
+    <button class="cp-trigger" data-cp="cp-drains"><span class="badge">?</span> Checkpoint: Surgical Drains</button>
+  </section>
+
+  <section class="block">
+    <h3>Postoperative Mobility Considerations</h3>
+    <p>Early ambulation reduces atelectasis, hypostatic pneumonia, GI discomfort, and thromboembolic events. When getting a patient up for the first time, watch for <b>orthostatic hypotension</b> (a drop of &ge;20 mmHg systolic or &ge;10 mmHg diastolic from supine to standing, with dizziness/weakness/fainting) &mdash; assess BP supine, sitting, then 2&ndash;3 minutes after standing.</p>
+    <button class="cp-trigger" data-cp="cp-mobility"><span class="badge">?</span> Checkpoint: Postop Mobility</button>
+  </section>
+</section>
+
+<!-- ============================================================ DRUG GUIDE ============================================================ -->
+<section class="panel" id="drugs">
+  <div class="mod-hero">
+    <div class="eyebrow">Reference</div>
+    <h2>Drug &amp; Solution Guide</h2>
+    <p>High-yield medications and solutions across CVAD, chest tube, and wound care content.</p>
+  </div>
+
+  <section class="block">
+    <h3>High-Osmolarity Solutions Requiring Central Access</h3>
+    <div class="data-table-wrap">
+    <table>
+      <tr><th>Solution</th><th>Why it needs a CVAD</th></tr>
+      <tr><td>Total Parenteral Nutrition (TPN)</td><td>High dextrose concentration plus electrolytes &mdash; highly hyperosmolar</td></tr>
+      <tr><td>Dextrose 10% (D10W)</td><td>Hypertonic compared to plasma</td></tr>
+      <tr><td>Mannitol 20%</td><td>Osmotic diuretic; hyperosmolar and vein-irritating</td></tr>
+      <tr><td>3% Sodium Chloride</td><td>Severe hyponatremia; very irritating to peripheral veins</td></tr>
+    </table>
+    </div>
+    <p>Rule of thumb: solutions with osmolarity <b>&gt;900 mOsm/L</b> should be given through a central line.</p>
+  </section>
+
+  <section class="block">
+    <h3>Vesicant Medications</h3>
+    <div class="grid2">
+      <div class="card">
+        <h4 style="margin-top:0;">Chemotherapy vesicants</h4>
+        <ul><li>Doxorubicin</li><li>Vincristine</li><li>Vinblastine</li><li>Mitomycin</li></ul>
+      </div>
+      <div class="card" style="margin-bottom:0;">
+        <h4 style="margin-top:0;">Non-chemotherapy vesicants</h4>
+        <ul><li>Concentrated potassium chloride</li><li>Calcium chloride</li><li>Diazepam</li><li>Phenytoin (IV push)</li><li>Dopamine / Norepinephrine</li></ul>
+      </div>
+    </div>
+    <div class="callout high">
+      <span class="label">If extravasation occurs</span>
+      Stop the infusion immediately, aspirate remaining medication, apply a warm or cold compress per protocol, notify the provider, and anticipate a specific antidote order.
+    </div>
+  </section>
+
+  <section class="block">
+    <h3>Bleeding-Risk Medications to Screen For</h3>
+    <div class="data-table-wrap">
+    <table>
+      <tr><th>Medication class</th><th>Why it matters</th></tr>
+      <tr><td>Warfarin</td><td>Check INR before insertion/removal of lines or tubes</td></tr>
+      <tr><td>Aspirin / NSAIDs</td><td>Impair platelet function, increasing bleeding risk</td></tr>
+    </table>
+    </div>
+    <p>Relevant labs before an invasive line/tube procedure: <b>hemoglobin, hematocrit, and INR</b> (if on warfarin).</p>
+  </section>
+
+  <section class="block">
+    <h3>Wound Care Topical/Debridement Agents</h3>
+    <div class="data-table-wrap">
+    <table>
+      <tr><th>Agent</th><th>Use</th></tr>
+      <tr><td>Collagenase (enzymatic debridement)</td><td>Liquefies necrotic tissue selectively; apply only to necrotic areas</td></tr>
+      <tr><td>Silver or iodine-based antimicrobial dressings</td><td>Reduce bacterial load in infected/high-risk wounds</td></tr>
+      <tr><td>Normal saline</td><td>Preferred wound cleansing solution &mdash; noncytotoxic</td></tr>
+      <tr><td>Chlorhexidine / povidone-iodine</td><td>Skin antisepsis before sterile procedures per order</td></tr>
+      <tr><td>Heparin / saline flush</td><td>Locks CVAD lumens between uses to prevent clot occlusion</td></tr>
+    </table>
+    </div>
+    <div class="callout caution">
+      <span class="label">Test trap</span>
+      Avoid harsh antiseptics like hydrogen peroxide directly in a wound bed unless specifically prescribed &mdash; they can damage healthy tissue.
+    </div>
+  </section>
+</section>
+
+<!-- ============================================================ PRIORITY INTERVENTIONS ============================================================ -->
+<section class="panel" id="priority">
+  <div class="mod-hero">
+    <div class="eyebrow">Reference</div>
+    <h2>Priority Interventions Guide</h2>
+    <p>What to do first, organized by clinical scenario.</p>
+  </div>
+
+  <section class="block">
+    <h3>Tension Pneumothorax</h3>
+    <ol>
+      <li>Recognize (tracheal deviation away, absent breath sounds, hypotension, JVD)</li>
+      <li>Call for help immediately</li>
+      <li>Anticipate emergency needle decompression (2nd ICS, midclavicular line)</li>
+      <li>Prepare for chest tube placement</li>
+    </ol>
+  </section>
+
+  <section class="block">
+    <h3>Chest Tube Emergencies</h3>
+    <div class="data-table-wrap">
+    <table>
+      <tr><th>Situation</th><th>First action</th></tr>
+      <tr><td>Disconnected from drainage unit</td><td>Place open tubing end into ~2 cm sterile water for a temporary water seal, reconnect, notify provider</td></tr>
+      <tr><td>Pulled out of the patient</td><td>Sterile occlusive dressing taped on 3 sides, assess respiratory status, call provider STAT</td></tr>
+      <tr><td>Continuous bubbling (air leak)</td><td>Clamp progressively from chest toward device to localize, notify provider if unresolved</td></tr>
+      <tr><td>Sudden bright red drainage &gt;200 mL/hr</td><td>Get vitals, notify provider immediately, anticipate possible OR</td></tr>
+    </table>
+    </div>
+  </section>
+
+  <section class="block">
+    <h3>CVAD Emergencies</h3>
+    <div class="grid2">
+      <div class="card">
+        <h4 style="margin-top:0;">Air embolism</h4>
+        <ol><li>Clamp/close hub</li><li>Call rapid response</li><li>Position patient LEFT side, head down</li><li>High-flow O2; CPR if indicated</li></ol>
+      </div>
+      <div class="card" style="margin-bottom:0;">
+        <h4 style="margin-top:0;">Vesicant extravasation</h4>
+        <ol><li>Stop the infusion</li><li>Aspirate remaining drug</li><li>Warm/cold compress per protocol</li><li>Notify provider; anticipate antidote</li></ol>
+      </div>
+    </div>
+    <div class="callout high">
+      <span class="label">Never forget</span>
+      A fully dislodged CVAD requires direct pressure and a rapid response call &mdash; there is a risk of air embolus at the exit site.
+    </div>
+  </section>
+
+  <section class="block">
+    <h3>"Call the Provider Now" Checklist (across all devices)</h3>
+    <ul>
+      <li>Sudden increase in drainage (chest tube &gt;150&ndash;200 mL/hr; CVAD site bleeding)</li>
+      <li>New or worsening respiratory distress, tracheal deviation, hypoxia</li>
+      <li>Rapidly expanding subcutaneous emphysema</li>
+      <li>Persistent, unexplained continuous air leak</li>
+      <li>Device failure or accidental removal of any tube/line</li>
+      <li>Signs of infection: fever &gt;100.4&deg;F, redness/purulent drainage, rising WBC</li>
+    </ul>
+  </section>
+</section>
+
+<!-- ============================================================ FLASHCARDS ============================================================ -->
+<section class="panel" id="flash">
+  <div class="mod-hero">
+    <div class="eyebrow">Review</div>
+    <h2>Flash Cards</h2>
+    <p>Click a card to flip it. Filter by topic to focus your review.</p>
+  </div>
+  <div class="fc-controls" id="fcControls"></div>
+  <div class="fc-grid" id="fcGrid"></div>
+</section>
+
+</main>
+
+<footer>
+  NRSG 3333 Exam 2 Study Guide &middot; Built from Module 4&ndash;6 course materials, Brunner &amp; Suddarth's Textbook of Medical-Surgical Nursing (15th ed.), and course learning outcomes.
+</footer>
+
+  </div>
+</div>
+
+<!-- ===================== CHECKPOINT MODAL ===================== -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <div class="modal-head">
+      <button class="modal-close" id="modalClose">&times;</button>
+      <div class="eyebrow">Checkpoint</div>
+      <h4 id="modalTitle">Topic</h4>
+      <div class="modal-dots" id="modalDots"></div>
+    </div>
+    <div class="modal-body">
+      <div class="q-count" id="modalCount">Question 1 of 1</div>
+      <div class="q-text" id="modalQText"></div>
+      <div id="modalOpts"></div>
+      <div class="modal-feedback" id="modalFeedback"></div>
+    </div>
+    <div class="modal-nav">
+      <div class="side">
+        <button class="nav-btn" id="modalPrev">&larr; Previous</button>
+        <button class="nav-btn primary" id="modalNext">Next &rarr;</button>
+      </div>
+      <button class="nav-btn exit" id="modalExit">Exit</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ===================== CHECKPOINT DATA (grouped by topic, shown via modal) ===================== */
+const checkpoints = {
+
+  "cp-breathing":{title:"Mechanics of Breathing", qs:[
+    {q:"What happens to the thoracic cavity and intrathoracic pressure during inhalation?",
+      opts:["The cavity shrinks and pressure rises","The cavity expands and pressure drops below atmospheric","Pressure stays constant","The diaphragm relaxes and moves upward"], correct:1,
+      fb:"During inhalation the diaphragm contracts/flattens and intercostals lift the ribs, expanding the cavity and dropping pressure below atmospheric so air rushes in."},
+    {q:"What is the PRIMARY driver of respiratory rate and depth in a healthy person?",
+      opts:["Blood oxygen (PaO2) level","Blood carbon dioxide (PaCO2) and pH","Heart rate","Hemoglobin level"], correct:1,
+      fb:"Central chemoreceptors respond primarily to rising CO2 (and falling pH), not to hypoxemia, in a healthy respiratory drive."},
+    {q:"Which lung sound is heard ONLY on inspiration and suggests upper airway obstruction?",
+      opts:["Rhonchi","Wheeze","Stridor","Pleural rub"], correct:2,
+      fb:"Stridor is an inspiratory-only sound associated with obstruction of the trachea or upper airway."},
+    {q:"A patient with heart failure has fine, popping crackles heard on inspiration. This sound is best described as:",
+      opts:["Rhonchi","Rales","Wheezes","Stridor"], correct:1,
+      fb:"Rales (fine crackles) are heard on inspiration and are associated with fluid in the alveolar/interstitial space, as in heart failure or pneumonia."}
+  ]},
+
+  "cp-pe":{title:"Gas Exchange & Pulmonary Embolism", qs:[
+    {q:"A V/Q mismatch refers to a mismatch between:",
+      opts:["Heart rate and blood pressure","Air ventilating the alveoli and blood perfusing the capillaries","Ventricle size and cardiac output","Oxygen and hemoglobin binding"], correct:1,
+      fb:"V/Q mismatch describes an imbalance between ventilation (air reaching alveoli) and perfusion (blood flow through the capillaries), the root cause of hypoxia in PE and pulmonary edema."},
+    {q:"Which imaging study is the gold standard for diagnosing pulmonary embolism?",
+      opts:["Chest X-ray","D-dimer","CT pulmonary angiography (CTPA)","Echocardiogram"], correct:2,
+      fb:"CTPA directly visualizes blood flow in the pulmonary arteries and is the gold-standard imaging test for PE."},
+    {q:"A patient with a PE reports a sudden sense of impending doom, pleuritic chest pain, and tachycardia. This symptom cluster is:",
+      opts:["Atypical and rarely seen with PE","Classic for PE and should prompt urgent evaluation","Only seen in anxiety disorders","Specific to pneumothorax, not PE"], correct:1,
+      fb:"Sudden dyspnea, pleuritic chest pain, tachycardia, and a sense of impending doom are classic PE symptoms requiring urgent workup."},
+    {q:"Which PE treatment prevents future clots from traveling to the lungs from the legs?",
+      opts:["Thrombolytics","Inferior vena cava (IVC) filter","Oxygen therapy","Pain management"], correct:1,
+      fb:"An IVC filter is placed to physically prevent clots from the lower extremities from reaching the pulmonary circulation."}
+  ]},
+
+  "cp-pneumo":{title:"Pneumothorax", qs:[
+    {q:"A patient develops sudden absent breath sounds on the right, tracheal deviation to the LEFT, and hypotension after a subclavian line placement. This is most consistent with:",
+      opts:["Simple pneumothorax","Tension pneumothorax","Pleural effusion","Pulmonary embolism"], correct:1,
+      fb:"Trapped air under increasing pressure shifts the mediastinum AWAY from the affected side and compresses the heart/great vessels, causing hypotension — this is tension pneumothorax."},
+    {q:"An 'open' or sucking chest wound produces which characteristic finding?",
+      opts:["A sucking sound with air moving in/out of the chest wall defect","Silent breath sounds bilaterally","Bradycardia only","No change in mediastinal position"], correct:0,
+      fb:"Open pneumothorax allows air to pass freely in and out of a chest wall defect, producing an audible sucking sound and mediastinal flutter."},
+    {q:"What is the emergency bridge treatment for a suspected tension pneumothorax before a chest tube can be placed?",
+      opts:["Oral antibiotics","Needle decompression at the 2nd ICS, midclavicular line","Chest physiotherapy","Incentive spirometry"], correct:1,
+      fb:"Needle decompression rapidly releases trapped pressure and serves as an emergency bridge to definitive chest tube placement."},
+    {q:"Which pneumothorax type most commonly results from rupture of an air-filled bleb with no history of trauma?",
+      opts:["Traumatic pneumothorax","Open pneumothorax","Simple/spontaneous pneumothorax","Tension pneumothorax (from trauma)"], correct:2,
+      fb:"A simple/spontaneous pneumothorax occurs when a bleb ruptures and air enters the pleural space without any traumatic event."},
+    {q:"In tension pneumothorax, percussion of the affected side is typically:",
+      opts:["Dull to flat","Hyperresonant","Normal resonance","Absent entirely"], correct:1,
+      fb:"Air trapped under pressure in the pleural space produces a hyperresonant percussion note on the affected side."}
+  ]},
+
+  "cp-effusion":{title:"Pleural Effusion & Assessment", qs:[
+    {q:"A transudative pleural effusion is most commonly caused by:",
+      opts:["Bacterial pneumonia","Heart failure","Malignancy","Tuberculosis"], correct:1,
+      fb:"Transudate effusions occur from hydrostatic/oncotic pressure imbalances, most commonly due to heart failure, without the pleura itself being diseased."},
+    {q:"Which finding is expected with a large pleural effusion?",
+      opts:["Hyperresonant percussion note","Increased fremitus","Dull-to-flat percussion and decreased breath sounds over the fluid","Tracheal shift toward the effusion"], correct:2,
+      fb:"Fluid dampens sound transmission (dull/flat percussion, decreased fremitus/breath sounds); a large effusion shifts the trachea AWAY from the fluid, not toward it."},
+    {q:"What procedure both relieves dyspnea from a pleural effusion AND provides fluid for diagnostic analysis?",
+      opts:["Bronchoscopy","Thoracentesis","Spirometry","Paracentesis"], correct:1,
+      fb:"Thoracentesis removes pleural fluid, relieving respiratory compromise while providing a sample for culture, cytology, and chemistry analysis."},
+    {q:"The most common malignant cause of pleural effusion is:",
+      opts:["Breast cancer","Bronchogenic (lung) carcinoma","Colon cancer","Renal cell carcinoma"], correct:1,
+      fb:"Bronchogenic carcinoma is the most common malignancy associated with an exudative pleural effusion."}
+  ]},
+
+  "cp-vent":{title:"Ventilator Modes", qs:[
+    {q:"Which ventilator mode delivers a set number of full machine breaths but allows the patient to breathe spontaneously between them?",
+      opts:["Controlled mechanical ventilation","SIMV","CPAP","BiPAP"], correct:1,
+      fb:"SIMV (synchronized intermittent mandatory ventilation) provides set mandatory breaths while allowing spontaneous breathing in between."},
+    {q:"PEEP is used primarily to:",
+      opts:["Increase heart rate","Prevent alveolar collapse at end-expiration","Replace the need for oxygen therapy","Decrease airway pressure"], correct:1,
+      fb:"Positive end-expiratory pressure (PEEP) keeps a small amount of pressure in the lungs at the end of expiration, preventing alveolar collapse."},
+    {q:"BiPAP is most commonly used for which patient population?",
+      opts:["Patients in cardiac arrest","Patients with severe COPD or sleep apnea needing noninvasive support","Fully sedated ICU patients only","Patients requiring emergency intubation"], correct:1,
+      fb:"BiPAP delivers independent inspiratory/expiratory pressures noninvasively via a mask and is commonly used for severe COPD or sleep apnea."}
+  ]},
+
+  "cp-ctsystems":{title:"Drainage Systems & Chambers", qs:[
+    {q:"The water-seal chamber should be filled with sterile water to which level?",
+      opts:["20 cm","2 cm","200 mL","It should remain dry"], correct:1,
+      fb:"The water-seal chamber is filled to the 2-cm line to create the one-way valve effect that lets air/fluid leave but not re-enter."},
+    {q:"What is the typical suction regulator setting unless otherwise ordered?",
+      opts:["-5 cm H2O","-20 cm H2O","-50 cm H2O","0 cm H2O"], correct:1,
+      fb:"The dry suction regulator is typically set to -20 cm H2O unless specifically ordered otherwise."},
+    {q:"Intermittent bubbling vs. continuous bubbling in the water seal — what's the difference in meaning?",
+      opts:["Both are always abnormal","Intermittent is normal; continuous suggests an air leak","Continuous is normal; intermittent suggests an air leak","Neither is clinically significant"], correct:1,
+      fb:"Intermittent bubbling is normal, especially early in pneumothorax treatment. Continuous bubbling indicates an air leak somewhere in the system."},
+    {q:"What does 'tidaling' in the water-seal chamber confirm?",
+      opts:["The patient has an infection","The system is connected and functioning with respirations","The suction is too high","The chest tube needs to be removed"], correct:1,
+      fb:"Tidaling — the water level rising and falling with respirations — confirms the system is patent and properly connected."},
+    {q:"Which chest drainage system uses a mechanical one-way valve and works even if knocked over?",
+      opts:["Traditional water seal (wet suction)","Dry suction water seal","Dry suction one-way valve system","None of these"], correct:2,
+      fb:"The dry suction one-way valve system has no water seal to spill, so it continues to function even if tipped over — ideal for ambulatory patients."}
+  ]},
+
+  "cp-ctsetup":{title:"Setup & Bedside Readiness", qs:[
+    {q:"During initial chest tube drainage system setup, the unit should be kept:",
+      opts:["Above the level of the patient's chest","Below the level of the patient's chest","At any height, it doesn't matter","Directly on the floor"], correct:1,
+      fb:"The system must stay below chest level to prevent fluid or air from flowing backward into the pleural space."},
+    {q:"Which of the following items should ALWAYS be kept at the bedside of a chest tube patient?",
+      opts:["A second ventilator","Rubber-tipped clamps, petroleum gauze, sterile water, and an occlusive dressing","A defibrillator","A blood pressure cuff only"], correct:1,
+      fb:"Emergency supplies including clamps, petroleum gauze, occlusive dressing, and sterile water must be readily available in case of disconnection or dislodgement."},
+    {q:"After connecting wall suction during setup, the nurse should increase suction until:",
+      opts:["The patient reports comfort","The device indicator (e.g., bellows) shows adequate suction","The water seal chamber is empty","Bubbling becomes vigorous in the water seal"], correct:1,
+      fb:"Wall suction is increased until the device's own indicator (such as a bellows reaching a mark) shows adequate suction has been reached; the regulator dial sets the actual level delivered."},
+    {q:"Before setup, the nurse should first:",
+      opts:["Apply suction immediately","Perform hand hygiene and verify the order for suction vs. water seal only","Ambulate the patient","Remove the chest tube dressing"], correct:1,
+      fb:"Hand hygiene and order verification are the first steps before any equipment setup begins."}
+  ]},
+
+  "cp-ctassess":{title:"Ongoing Assessment", qs:[
+    {q:"What chest tube drainage rate should prompt closer monitoring and possible provider notification?",
+      opts:["10 mL/hr","50 mL/hr","Greater than 150-200 mL/hr","Any amount of drainage"], correct:2,
+      fb:"Bright-red surges or sustained drainage rates exceeding roughly 150-200 mL/hr in an adult should be reported."},
+    {q:"Palpating for crepitus around a chest tube insertion site is checking for:",
+      opts:["Infection","Subcutaneous emphysema","Dehydration","Pain level"], correct:1,
+      fb:"Crepitus (a crackling/puffy sensation) indicates subcutaneous emphysema — air leaking into the subcutaneous tissue."},
+    {q:"Should chest tube tubing ever be 'milked' or 'stripped' during routine assessment?",
+      opts:["Yes, every shift to keep it patent","No, not without a specific order — it can cause dangerously high pressure","Only if drainage looks bloody","Only during the day shift"], correct:1,
+      fb:"Milking or stripping tubing without an order can generate dangerously high intraluminal pressure and cause a tension pneumothorax."},
+    {q:"As part of every-shift assessment, the nurse should confirm the water seal is:",
+      opts:["Dry","At the 2-cm mark, with the system upright and below the chest","Filled to the top of the chamber","Connected directly to room air with no water"], correct:1,
+      fb:"The water seal should be maintained at the 2-cm mark with the system upright and positioned below the patient's chest."}
+  ]},
+
+  "cp-cttrouble":{title:"Chest Tube Troubleshooting", qs:[
+    {q:"The nurse notes continuous bubbling in the water-seal chamber. The FIRST action should be to:",
+      opts:["Increase the wall suction level","Clamp the tube progressively from the chest toward the device to localize the leak","Immediately remove the chest tube","Document it as a normal finding"], correct:1,
+      fb:"Continuous bubbling suggests an air leak. Clamping progressively from the chest toward the device helps localize whether the leak is at the insertion site, the tubing, or the drainage unit."},
+    {q:"A chest tube becomes accidentally disconnected from the drainage system. The nurse should immediately:",
+      opts:["Clamp the tube and wait for the provider with no other action","Place the patient end of the tubing into about 2 cm of sterile water to create a temporary water seal","Reconnect it without any other action","Apply suction directly by mouth to the tube"], correct:1,
+      fb:"Submerging the open end in sterile water re-creates a temporary one-way valve while a new system is obtained and the provider is notified."},
+    {q:"If a chest tube is accidentally pulled out of the patient, the nurse should:",
+      opts:["Attempt to reinsert it immediately","Apply a sterile occlusive dressing taped on three sides and call the provider STAT","Leave the site open to air","Apply firm circumferential tape on all four sides"], correct:1,
+      fb:"Taping on three sides allows air to vent out and reduces the risk of a tension pneumothorax while awaiting the provider."},
+    {q:"Drainage from a chest tube suddenly increases to bright red at 220 mL/hr. This finding should prompt the nurse to suspect:",
+      opts:["Normal postoperative healing","Possible vascular injury requiring surgical evaluation","Lung re-expansion","An empty collection chamber"], correct:1,
+      fb:"Sustained bright red drainage over roughly 150-200 mL/hr suggests active bleeding/vascular injury and requires immediate provider notification."},
+    {q:"No tidaling is observed in a previously functioning water-seal chamber. This could indicate:",
+      opts:["The lung has fully collapsed","The lung has re-expanded OR the tubing is kinked/obstructed","The patient needs more suction","Nothing — tidaling is not clinically relevant"], correct:1,
+      fb:"Absent tidaling may mean the lung has re-expanded (good) or that the tubing is obstructed (needs troubleshooting) — both should be assessed."},
+    {q:"If the chest drainage unit tips over, the nurse should:",
+      opts:["Discard the unit immediately without assessment","Set it upright, let the fluid settle, and recheck the 2-cm water seal","Increase suction to compensate","Disconnect the patient from the system permanently"], correct:1,
+      fb:"Setting the unit upright and rechecking the water-seal level addresses the tip-over; the unit is replaced only if the seal is compromised."}
+  ]},
+
+  "cp-ctremoval":{title:"Insertion Support & Removal", qs:[
+    {q:"Before chest tube insertion, which lab value is especially important given a patient's warfarin use?",
+      opts:["Potassium","INR","Blood glucose","Amylase"], correct:1,
+      fb:"INR reflects anticoagulation status from warfarin and helps assess bleeding risk before an invasive procedure."},
+    {q:"In the trauma setting, what initial chest tube output should be reported as possibly indicating a vascular injury?",
+      opts:["Greater than 1500 mL at once, or greater than 200 mL/hr","50 mL total","Any drainage at all","Only clear fluid drainage"], correct:0,
+      fb:"An initial output over 1500 mL, or a sustained rate over 200 mL/hr, may indicate a vascular injury requiring surgical repair."},
+    {q:"What are the readiness criteria for chest tube removal?",
+      opts:["Increased drainage and a continuous air leak","Improved respiratory status, decreased drainage, no air leak, and improved chest X-ray","Patient request only","Any time after 24 hours regardless of findings"], correct:1,
+      fb:"Removal readiness includes improved respiratory status, symmetric chest movement, decreased drainage, absence of an air leak, and improved imaging."},
+    {q:"What should the patient do at the moment the chest tube is removed?",
+      opts:["Hold their breath in full exhalation","Take a deep breath and hold it, or perform a Valsalva maneuver","Cough repeatedly and rapidly","Nothing in particular"], correct:1,
+      fb:"A held deep breath or Valsalva raises intrathoracic pressure at the moment of removal, reducing the chance air is drawn back into the pleural space."},
+    {q:"After chest tube removal, how frequently should the patient's respiratory status be assessed initially?",
+      opts:["Once every 8 hours","Every 15-30 minutes for the first 1-2 hours, then per policy","Only if the patient reports a problem","Once at discharge"], correct:1,
+      fb:"Frequent early monitoring (every 15-30 minutes for 1-2 hours) helps catch a recurrent pneumothorax quickly."}
+  ]},
+
+  "cp-ctdoc":{title:"Chest Tube Documentation", qs:[
+    {q:"Which of the following should be documented every shift for a chest tube patient?",
+      opts:["Only the drainage amount","Suction setting, water-seal level, respiratory assessment, tidaling/air-leak status, and drainage characteristics","Only the insertion date","Nothing unless a complication occurs"], correct:1,
+      fb:"Comprehensive shift documentation includes system settings, respiratory status, tidaling/air leak, drainage, site condition, and any interventions."},
+    {q:"When documenting drainage, what should be recorded besides total volume?",
+      opts:["Only the time of the last check","Color and character (e.g., serosanguineous) in addition to amount","Nothing else is needed","Only whether it is present or absent"], correct:1,
+      fb:"Drainage documentation should include color, character, and amount, not just a running total."},
+    {q:"Presence or absence of crepitus should be documented because it reflects:",
+      opts:["Blood glucose control","Subcutaneous emphysema status at the insertion site","Suction tubing length","Patient satisfaction"], correct:1,
+      fb:"Crepitus reflects air leaking into subcutaneous tissue and is an important insertion-site finding to trend over time."}
+  ]},
+
+  "cp-cvadneed":{title:"Why Central Access?", qs:[
+    {q:"Which of the following requires central venous access due to its osmolarity or vesicant properties?",
+      opts:["0.9% normal saline","Lactated Ringer's","3% sodium chloride (hypertonic saline)","D5W at maintenance rate"], correct:2,
+      fb:"3% sodium chloride is very hyperosmolar and irritating to peripheral veins, requiring central administration."},
+    {q:"What is the general osmolarity threshold above which a solution should be given centrally?",
+      opts:["300 mOsm/L","500 mOsm/L","900 mOsm/L","2000 mOsm/L"], correct:2,
+      fb:"Solutions with osmolarity greater than about 900 mOsm/L generally require central rather than peripheral access."},
+    {q:"Which of these is a non-chemotherapy vesicant medication?",
+      opts:["Acetaminophen","Concentrated potassium chloride","Normal saline","Docusate"], correct:1,
+      fb:"Concentrated potassium chloride is a non-chemotherapy vesicant that can severely damage tissue if it infiltrates peripherally."},
+    {q:"What must be confirmed before a CVAD is used for the first time?",
+      opts:["The patient's meal schedule","Radiologic confirmation of tip placement","The patient's discharge date","Insurance authorization only"], correct:1,
+      fb:"Fluoroscopy (tunneled lines) or X-ray (non-tunneled/PICC) must confirm correct tip placement before the device is used."},
+    {q:"What must be obtained from the client before any CVAD is inserted?",
+      opts:["A dietary consult","Informed consent","A physical therapy referral","Insurance pre-authorization only"], correct:1,
+      fb:"CVAD insertion is an invasive medical procedure requiring informed consent from the client."}
+  ]},
+
+  "cp-cvadtunnel":{title:"Tunneled vs. Non-Tunneled CVCs", qs:[
+    {q:"Which CVAD is characterized by a Dacron cuff and a subcutaneous tunnel separating the skin exit site from the vein entry point?",
+      opts:["Non-tunneled CVC","PICC line","Tunneled CVC (e.g., Hickman)","Midline catheter"], correct:2,
+      fb:"The tunnel and cuff of a tunneled CVC make bacteria travel farther to reach the bloodstream, lowering infection risk compared to a non-tunneled line."},
+    {q:"Which CVAD is generally preferred for adults needing days-to-weeks of central access due to lower thrombosis/infection risk among non-tunneled sites?",
+      opts:["Femoral vein CVC","Subclavian vein CVC","Internal jugular CVC only","Any site, no preference"], correct:1,
+      fb:"The subclavian site is generally preferred in adults for non-tunneled CVCs due to a lower risk of thrombosis and infection compared to other sites."},
+    {q:"A non-tunneled CVC is inserted directly into a central vein with no cuff. This device is best suited for:",
+      opts:["Long-term home chemotherapy","Short-term access in an ICU or emergency setting","Permanent dialysis access","Weekly outpatient infusions for months"], correct:1,
+      fb:"Non-tunneled CVCs provide short-term (days-to-weeks) access and are commonly used in ICU or emergency settings; they carry a higher infection risk than tunneled devices."},
+    {q:"What imaging technique is used to confirm tip placement during insertion of a tunneled CVAD?",
+      opts:["Ultrasound only","Fluoroscopy","MRI","Doppler study"], correct:1,
+      fb:"Tunneled CVADs are placed in the OR or by interventional radiology using fluoroscopy, a continuous real-time X-ray technique, to confirm tip placement during the procedure."}
+  ]},
+
+  "cp-cvadpicc":{title:"PICC, Ports & Midlines", qs:[
+    {q:"Where does a PICC line's tip terminate?",
+      opts:["In the upper arm","In the superior vena cava","In the right ventricle","In the subclavian artery"], correct:1,
+      fb:"A PICC line's tip terminates in the superior vena cava, which is why it is considered central access."},
+    {q:"Which needle type must be used to access an implanted port?",
+      opts:["Any standard hypodermic needle","A non-coring (Huber) needle","An 18-gauge IV catheter","A butterfly needle only"], correct:1,
+      fb:"A non-coring (Huber) needle slides between the fibers of the port septum instead of coring out a piece, preventing damage and leakage."},
+    {q:"A patient with a midline catheter is prescribed TPN. The nurse should:",
+      opts:["Administer it since midlines are central access","Question the order because midline tips do not reach central circulation","Administer it only at a slow rate","Flush first, then infuse"], correct:1,
+      fb:"A midline is a peripheral device even though it is inserted like a PICC; its tip terminates in the upper arm, not beyond the axilla, so it should never be used for vesicants, TPN, or other agents needing central dilution."},
+    {q:"How can a power-injectable implanted port be identified on physical exam?",
+      opts:["It is always blue in color","Three tiny raised bumps in a triangle pattern on the port","It has no palpable landmarks","It is larger than all other ports"], correct:1,
+      fb:"Power-injectable ports have three small raised bumps arranged in a triangle, identifying them as safe for high-pressure contrast injection during CT or MRI."},
+    {q:"Which client would be a poor candidate for a PICC line?",
+      opts:["A client needing 3 months of IV antibiotics","A client with end-stage renal disease who needs vein preservation for a future fistula","A client needing frequent blood draws","A client receiving chemotherapy"], correct:1,
+      fb:"PICC placement should be avoided in clients with ESRD who need their veins preserved for future dialysis access (fistula or graft)."}
+  ]},
+
+  "cp-cvadsummary":{title:"CVAD Summary Chart", qs:[
+    {q:"Which CVAD site is favored in adults for a non-tunneled catheter due to decreased risk of catheter-related thrombosis and infection?",
+      opts:["Femoral vein","Subclavian vein","Radial artery","Popliteal vein"], correct:1,
+      fb:"The subclavian vein is favored in adults for non-tunneled CVADs due to a lower risk of catheter-related thrombosis and/or infection compared to other sites."},
+    {q:"What is the expected duration of use for a PICC line?",
+      opts:["24 hours only","Up to 6 months","Only 1 week","Permanent, never removed"], correct:1,
+      fb:"A PICC line is intended for long-term use, up to approximately six months."},
+    {q:"What is required before an implanted port (IVAD) can be used?",
+      opts:["A 24-hour waiting period after placement","Surgical placement and access with a non-coring needle","Nothing further is needed after the skin heals","A peripheral IV must remain in place as backup"], correct:1,
+      fb:"An implanted port is surgically placed and can be used immediately after placement once accessed with a non-coring needle."}
+  ]},
+
+  "cp-cvadaccess":{title:"Lumens & Securement", qs:[
+    {q:"Which lumen is used for blood draws on a triple-lumen catheter, and why?",
+      opts:["Proximal, because it is closest to the heart","Distal (largest, 16 gauge), because it exits farthest from the heart","Medial, because it is used for medications","Any lumen works equally well"], correct:1,
+      fb:"The distal lumen is typically the largest and exits farthest from the heart, giving the best flow for blood sampling and CVP monitoring."},
+    {q:"Before drawing blood from a multi-lumen CVAD, the nurse should FIRST:",
+      opts:["Flush all lumens simultaneously","Stop infusions running through the other lumens","Remove the dressing","Notify the pharmacy"], correct:1,
+      fb:"Stopping other infusions prevents contamination or dilution of the blood sample."},
+    {q:"Which of the following is a sutureless CVAD securement device mentioned in this module?",
+      opts:["Stat-lock","Steri-strip","Penrose clip","Huber clamp"], correct:0,
+      fb:"A stat-lock is a sutureless securement device used to stabilize a CVAD and help prevent dislodgement."},
+    {q:"Why must a CVAD always be properly secured to the client?",
+      opts:["For patient comfort only, with no clinical impact","Because dislodgement and premature removal increase infection, vessel injury, and treatment delays","Securement is optional if the dressing is intact","To make dressing changes faster"], correct:1,
+      fb:"Proper securement (sutures or a sutureless device) reduces the risk of dislodgement, which can lead to infection, vessel injury, and delays in treatment."}
+  ]},
+
+  "cp-cvaddressing":{title:"CVAD Dressing Care", qs:[
+    {q:"How often must a CVAD dressing be changed if NO antimicrobial bio-patch is used?",
+      opts:["Every 7 days","Within 3 days","Once a month","Only when visibly soiled, regardless of time"], correct:1,
+      fb:"Without an antimicrobial disc, the dressing should be changed within 3 days and a patch applied."},
+    {q:"A CVAD dressing appears loose and slightly wet. The nurse should:",
+      opts:["Leave it until the scheduled change date","Change it now regardless of the scheduled date","Add extra tape over it","Ignore it since dressings are often slightly damp"], correct:1,
+      fb:"Any time dressing integrity is disrupted (loose, wet, or peeling), it should be changed immediately to reduce CLABSI risk."},
+    {q:"What should a properly maintained CVAD dressing always look like?",
+      opts:["Slightly damp and loose","Clean, dry, and occlusive","Any condition is acceptable as long as the line still infuses","Covered by a second dressing at all times"], correct:1,
+      fb:"A CVAD dressing should always be clean, dry, and occlusive to help prevent a central line-associated bloodstream infection (CLABSI)."}
+  ]},
+
+  "cp-cvadcomp":{title:"CVAD Complications", qs:[
+    {q:"A patient with a CVAD develops sudden dyspnea and chest pain right after the line was accessed. The nurse suspects air embolism and should position the patient:",
+      opts:["Right side, head elevated","Left side, head down (Trendelenburg)","Prone","High Fowler's upright"], correct:1,
+      fb:"Left-side, head-down positioning helps trap air in the right atrium, away from the pulmonary outflow tract."},
+    {q:"Which finding suggests a CLABSI (catheter-related bloodstream infection)?",
+      opts:["Cool, pale skin at the site","Redness, edema, drainage at the site, and fever greater than 100.4°F","A dry, intact dressing","Slightly decreased blood return only"], correct:1,
+      fb:"Local inflammation signs plus systemic fever suggest infection and require prompt notification and culture."},
+    {q:"A vesicant medication infiltrates and extravasates. The FIRST nursing action is to:",
+      opts:["Increase the infusion rate to flush it through","Stop the infusion immediately","Apply a tight pressure dressing","Continue the infusion but monitor closely"], correct:1,
+      fb:"Stopping the infusion immediately limits further tissue damage before aspirating remaining medication and applying compresses per protocol."},
+    {q:"A CVAD becomes fully dislodged from the patient. The priority action is to:",
+      opts:["Attempt to reinsert it at the bedside","Apply direct pressure to the site and call rapid response","Flush the remaining external catheter","Document and continue the shift as usual"], correct:1,
+      fb:"A fully dislodged CVAD carries a risk of air embolus and bleeding, requiring direct pressure and an emergent response."},
+    {q:"Sluggish or absent blood return with difficulty flushing a CVAD suggests:",
+      opts:["Normal function","Possible occlusion","A properly placed line","Overhydration"], correct:1,
+      fb:"Poor blood return and flushing difficulty suggest a possible occlusion; the line should never be forcefully flushed against resistance."},
+    {q:"A client with a CVAD reports hearing 'gurgling' sounds and has new arm/hand edema and distended neck veins. The nurse should suspect:",
+      opts:["Normal catheter function","Catheter migration from its original position","Improved circulation","Dehydration"], correct:1,
+      fb:"Gurgling sounds, arm/hand edema, and distended neck veins can indicate the catheter tip has migrated from its original position; the provider should be notified."},
+    {q:"Which action is correct for a catheter that has migrated EXTERNALLY (partially backed out)?",
+      opts:["Readvance it back into place at the bedside","It should NOT be readvanced; notify the provider","Remove it immediately without notifying anyone","Secure it in its new position with extra tape and continue using it"], correct:1,
+      fb:"A catheter that has migrated externally should never be readvanced by the nurse; the provider must be notified for evaluation and, if needed, repositioning by a trained professional."}
+  ]},
+
+  "cp-cvadassess":{title:"CVAD Ongoing Assessment", qs:[
+    {q:"How often should a CVAD be assessed in the acute care setting?",
+      opts:["Once daily only","At least once every shift and PRN","Only if the patient reports a problem","Once a week"], correct:1,
+      fb:"Per Table 4.3a, CVAD assessment should occur at least once every shift and as needed based on the client's condition."},
+    {q:"For a PICC line, where and how is upper arm circumference measured, and why?",
+      opts:["At the wrist, to check for edema from IV fluids","10 cm above the antecubital fossa, to help detect DVT-related edema","At the shoulder, to assess muscle strength","It is not necessary to measure arm circumference"], correct:1,
+      fb:"Arm circumference is measured 10 cm above the antecubital fossa each shift; a 3-cm increase compared to baseline may indicate edema associated with a DVT."},
+    {q:"Why is it important to compare the external catheter length to the initial placement verification?",
+      opts:["To bill correctly for supplies","To detect possible catheter migration or dislodgement","To determine the flush volume needed","It has no clinical significance"], correct:1,
+      fb:"A change in external catheter length compared to the original measurement can indicate the catheter has migrated or become dislodged."},
+    {q:"Why must all luer-lock connections on a CVAD system be secure?",
+      opts:["To make the line look tidy","To guard against microorganism/air entry and prevent medication leakage","Only for patient comfort","Loose connections have no real risk"], correct:1,
+      fb:"Secure luer-lock connections protect the closed system from contamination, air entry, and leakage of medications."}
+  ]},
+
+  "cp-cvadblood":{title:"CVAD Blood Sampling", qs:[
+    {q:"What syringe size is preferred when flushing or drawing from a CVAD, and why?",
+      opts:["1-mL syringe, for precision","10-mL syringe, because it generates lower pressure and reduces rupture risk","60-mL syringe, for speed","Any size is equally safe"], correct:1,
+      fb:"A 10-mL syringe generates lower internal pressure, reducing the risk of catheter rupture or damage during flushing or sampling."},
+    {q:"Before drawing a blood sample, the needleless connector should be scrubbed for at least:",
+      opts:["2 seconds","15 seconds","1 minute","No scrubbing is necessary"], correct:1,
+      fb:"Scrubbing the connector for at least 15 seconds and allowing it to dry reduces the risk of introducing bacteria into the bloodstream."},
+    {q:"Which lumen should NEVER be used to draw a blood sample while actively infusing?",
+      opts:["A lumen infusing normal saline at a maintenance rate","A lumen currently infusing parenteral nutrition","A lumen that was flushed an hour ago","Any lumen, as long as it is flushed first"], correct:1,
+      fb:"Drawing blood from a lumen infusing parenteral nutrition increases CLABSI risk and can also affect lab accuracy."},
+    {q:"What is the purpose of the push-pull method when drawing blood from a CVAD?",
+      opts:["To increase infusion speed","To clear the catheter's dead space while reducing phlebotomy-associated blood loss","To flush heparin into the bloodstream","To test for an air embolism"], correct:1,
+      fb:"The push-pull method (aspirating and reinfusing 4-6 mL over four cycles) clears the dead space for an accurate sample while reducing blood loss compared to the discard method."}
+  ]},
+
+  "cp-airwaydevices":{title:"Airway Devices", qs:[
+    {q:"An oropharyngeal airway (OPA) is appropriate for which patient?",
+      opts:["A conscious patient who is anxious","An unconscious patient with no gag reflex","A patient who needs frequent nasal suctioning at home","A patient with a basilar skull fracture"], correct:1,
+      fb:"OPAs are used only in unconscious patients without a gag reflex; inserting one in a conscious patient can trigger vomiting or laryngospasm."},
+    {q:"Which condition is a contraindication for a nasopharyngeal airway?",
+      opts:["Need for frequent suctioning","Intact gag reflex","Suspected basilar skull fracture","Mild anxiety"], correct:2,
+      fb:"Facial trauma, basilar skull fracture, and coagulopathy are contraindications because of the risk of intracranial placement or bleeding."},
+    {q:"The recommended cuff pressure range for an ETT or tracheostomy tube is:",
+      opts:["5-10 cm H2O","20-30 cm H2O","40-50 cm H2O","60-70 cm H2O"], correct:1,
+      fb:"This range prevents both aspiration around the cuff (too low) and tracheal ischemia/injury (too high); it is checked every 8-12 hours."},
+    {q:"How should an OPA be inserted?",
+      opts:["Curved tip pointing down toward the tongue","Curved tip pointing up toward the roof of the mouth","Straight in with no particular orientation","Through the nose only"], correct:1,
+      fb:"The OPA is inserted with the curved tip pointing up toward the roof of the mouth to avoid pushing the tongue backward."},
+    {q:"What confirms correct ETT placement after insertion or a position change?",
+      opts:["Patient verbal report only","Capnography, chest X-ray, and breath sounds","Pulse oximetry alone","Blood pressure measurement"], correct:1,
+      fb:"Placement is confirmed through a combination of capnography, chest X-ray, and auscultation of breath sounds."}
+  ]},
+
+  "cp-trachcare":{title:"Tracheostomy Care", qs:[
+    {q:"A nurse performing tracheostomy dressing changes should use gauze that is:",
+      opts:["Regular cotton gauze cut to fit","Pre-cut, lint-free trach gauze","Any absorbent cloth available","Paper towels"], correct:1,
+      fb:"Loose threads from cut regular gauze can be aspirated or become embedded in the stoma, causing irritation or infection."},
+    {q:"What is the correct sequence when performing tracheostomy site care?",
+      opts:["Clean the site, then suction","Suction first, then clean the site","Change the ties first, then suction","Order does not matter"], correct:1,
+      fb:"Suctioning first removes secretions so they don't recontaminate the freshly cleaned site."},
+    {q:"What emergency equipment should always be at a tracheostomy patient's bedside?",
+      opts:["A wheelchair only","Obturator, suction equipment, oxygen, manual ventilation bag, and a spare trach tube (same size and one size smaller)","A blood pressure cuff only","Nothing extra is needed"], correct:1,
+      fb:"These items allow for rapid re-establishment of the airway if the tube becomes displaced or occluded."},
+    {q:"Tracheostomy ties should be secured to allow:",
+      opts:["No space at all under the ties","1-2 fingers to fit underneath","A full hand to fit underneath","The tube to move freely in and out"], correct:1,
+      fb:"Ties snug enough for 1-2 fingers underneath prevent both accidental decannulation and excessive pressure on the neck."}
+  ]},
+
+  "cp-tanner2":{title:"Airway Clinical Judgment Cases", qs:[
+    {q:"A patient on aspiration precautions is found lying flat, drinking thin liquids, and begins coughing forcefully with a reddening face. The correct FIRST nursing action is to:",
+      opts:["Continue observing before doing anything","Reposition the patient upright and call for help","Document the finding for later","Give the patient more water to help clear the throat"], correct:1,
+      fb:"Repositioning upright and getting help addresses the immediate aspiration risk; this reflects the 'Responding' phase of Tanner's Model."},
+    {q:"A student nurse notices increasing blood at the nares and noisy breathing in a patient with an NPA, but is unsure if it's a true problem. The best action is to:",
+      opts:["Wait until certain there is a real problem","Report the observation to the instructor or nurse immediately","Remove the NPA without telling anyone","Ignore it since some bleeding can be normal"], correct:1,
+      fb:"Speaking up about a noticed change — even without certainty — is correct clinical judgment and supports patient safety."},
+    {q:"Gurgling breath sounds and crusted secretions at a tracheostomy site should prompt the nurse to:",
+      opts:["Clean the site first, then suction","Suction the site first, then clean it","Ignore it since crusting is expected","Remove the tracheostomy tube"], correct:1,
+      fb:"Suctioning first clears secretions causing the gurgling, then the site can be cleaned without recontamination."}
+  ]},
+
+  "cp-woundclass":{title:"Wound Classification", qs:[
+    {q:"A clean surgical incision closed with staples is expected to heal by which process?",
+      opts:["Primary intention","Secondary intention","Tertiary intention","None of these"], correct:0,
+      fb:"Approximated wound edges with minimal tissue loss, like a surgical incision, heal by primary intention."},
+    {q:"A pressure injury left open to heal from the base up is an example of:",
+      opts:["Primary intention","Secondary intention","Tertiary intention","Epithelial intention"], correct:1,
+      fb:"Wounds with significant tissue loss that cannot be approximated heal by secondary intention, filling in with granulation tissue from the base up."},
+    {q:"Which wound classification typically requires STERILE technique for dressing changes?",
+      opts:["Chronic pressure injury","Acute surgical incision with approximated edges","Open venous ulcer","Traumatic abrasion"], correct:1,
+      fb:"Surgical/acute wounds with approximated edges generally call for sterile technique, while chronic/open wounds typically use clean technique."},
+    {q:"A wound that has not progressed through normal healing stages after 30 days is classified as:",
+      opts:["Acute","Chronic","Closed","Primary"], correct:1,
+      fb:"Chronic wounds remain stuck in the inflammatory phase beyond 30 days and carry higher infection risk than acute wounds."}
+  ]},
+
+  "cp-pistaging":{title:"Pressure Injury Staging", qs:[
+    {q:"A pressure injury with full-thickness skin loss and visible fat, but no exposed bone, tendon, or muscle, is best classified as:",
+      opts:["Stage 2","Stage 3","Stage 4","Unstageable"], correct:1,
+      fb:"Stage 3 is full-thickness loss with possible visible fat, but bone/tendon/muscle are not exposed (that would be Stage 4)."},
+    {q:"A wound is completely covered by thick, black, leathery tissue and the depth cannot be determined. This should be documented as:",
+      opts:["Stage 3","Stage 4","Unstageable","Deep tissue pressure injury"], correct:2,
+      fb:"When eschar or slough obscures the wound bed so depth cannot be assessed, it is documented as unstageable until debrided."},
+    {q:"A patient has persistent nonblanchable deep purple discoloration of intact skin over the sacrum. This is best classified as:",
+      opts:["Stage 1","Stage 2","Deep tissue pressure injury","Unstageable"], correct:2,
+      fb:"Deep tissue pressure injury presents as persistent nonblanchable deep red, maroon, or purple discoloration of intact skin, indicating damage below the surface."},
+    {q:"Which pressure injury stage involves nonblanchable erythema of INTACT skin only?",
+      opts:["Stage 1","Stage 2","Stage 3","Stage 4"], correct:0,
+      fb:"Stage 1 is defined by nonblanchable redness of intact (unbroken) skin."},
+    {q:"Stable, dry, intact eschar on a patient's heel with no signs of infection should be:",
+      opts:["Debrided immediately","Left intact and monitored","Soaked and removed at the bedside","Covered with a wet-to-dry dressing"], correct:1,
+      fb:"Dry, stable heel eschar acts as a natural protective cover and should not be removed unless infection or drainage develops."}
+  ]},
+
+  "cp-debride":{title:"Tissue Types & Debridement", qs:[
+    {q:"Granulation tissue in a healing wound bed should be:",
+      opts:["Debrided along with the eschar","Protected and left undisturbed","Cleaned vigorously with each dressing change","Covered with a dry gauze only"], correct:1,
+      fb:"Granulation tissue is healthy, healing tissue with new capillaries — it should be protected, not disturbed."},
+    {q:"Which debridement method is considered non-selective, meaning it may remove healthy tissue along with dead tissue?",
+      opts:["Autolytic","Enzymatic","Mechanical","Biologic (maggot)"], correct:2,
+      fb:"Mechanical debridement (wet-to-dry dressings, irrigation) is non-selective and can damage healthy granulation tissue along with necrotic tissue."},
+    {q:"Autolytic debridement is contraindicated in which situation?",
+      opts:["A dry, necrotic wound","An infected wound","A clean granulating wound","A wound with minimal drainage"], correct:1,
+      fb:"Autolytic debridement traps moisture under an occlusive dressing, which can worsen an existing infection."},
+    {q:"Postoperative wound drainage exceeding how much within 24 hours should prompt the nurse to notify the provider?",
+      opts:["50 mL","150 mL","500 mL","It is never a concern"], correct:2,
+      fb:"Postoperative drainage over 500 mL in 24 hours may indicate hemorrhage or dehiscence and warrants provider notification."}
+  ]},
+
+  "cp-dressing":{title:"Dressing Selection", qs:[
+    {q:"Which dressing is most appropriate for a dry, necrotic wound that needs added moisture?",
+      opts:["Alginate","Hydrogel","Foam","Transparent film"], correct:1,
+      fb:"Hydrogels are water/glycerin-based and add moisture to dry or necrotic wounds; they require a secondary dressing."},
+    {q:"A heavily draining wound is best managed with which dressing type?",
+      opts:["Transparent film","Hydrocolloid","Foam or alginate","Hydrogel"], correct:2,
+      fb:"Foam and alginate dressings are highly absorbent and appropriate for wounds with moderate-to-heavy drainage."},
+    {q:"Negative pressure wound therapy (wound VAC) should NEVER be applied over:",
+      opts:["A clean granulating surgical wound","Necrotic tissue or untreated osteomyelitis","A large traumatic wound","A deep pressure injury with heavy drainage"], correct:1,
+      fb:"NPWT is contraindicated over necrotic tissue, untreated osteomyelitis, and malignant wounds."},
+    {q:"Which dressing type is appropriate for a superficial wound with minimal drainage, such as an IV site?",
+      opts:["Alginate","Transparent film","Foam","Antimicrobial silver dressing"], correct:1,
+      fb:"Transparent films are best for superficial wounds with minimal drainage; they trap exudate if used on heavily draining wounds."}
+  ]},
+
+  "cp-drains":{title:"Surgical Wound Drains", qs:[
+    {q:"A closed Jackson-Pratt drain that had steady serosanguineous output suddenly shows almost no drainage. The nurse should suspect:",
+      opts:["The wound has fully healed","A possible clot or kink obstructing the drain","Normal expected findings, no action needed","The bulb needs more suction applied manually"], correct:1,
+      fb:"A sudden drop in drainage from a previously functioning closed drain can indicate an obstruction and should be reported."},
+    {q:"A Penrose drain is best described as:",
+      opts:["A closed system with negative pressure","An open, passive drainage system secured with a safety pin","A tunneled central line","A negative pressure wound therapy device"], correct:1,
+      fb:"The Penrose drain is an open, passive system that drains onto the dressing and is secured with a large sterile safety pin."},
+    {q:"A Jackson-Pratt bulb should be emptied when it is:",
+      opts:["Completely full","About half full","Completely empty","Only at the end of the shift regardless of fill level"], correct:1,
+      fb:"JP bulbs are emptied when about half full to maintain effective suction and prevent overflow."},
+    {q:"When handling a Jackson-Pratt drain, the nurse should avoid:",
+      opts:["Measuring the output","Touching the open port","Securing it to prevent pulling","Documenting the color and amount"], correct:1,
+      fb:"The open port must remain sterile — touching it risks introducing infection into the closed system."}
+  ]},
+
+  "cp-mobility":{title:"Postoperative Mobility", qs:[
+    {q:"Orthostatic hypotension is defined as a drop of at least how much in systolic blood pressure upon standing?",
+      opts:["5 mmHg","10 mmHg","20 mmHg","40 mmHg"], correct:2,
+      fb:"Orthostatic hypotension is generally defined as a drop of 20 mmHg systolic or 10 mmHg diastolic upon standing, often with dizziness or weakness."},
+    {q:"What is the correct sequence for assessing a patient for orthostatic hypotension?",
+      opts:["Standing only","Supine, then sitting, then 2-3 minutes after standing","Sitting only","Standing, then supine"], correct:1,
+      fb:"Blood pressure should be checked supine, then sitting, then again 2-3 minutes after standing to detect a drop with position change."},
+    {q:"Early ambulation after surgery helps prevent which complication?",
+      opts:["Wound infection only","Atelectasis, hypostatic pneumonia, and thromboembolic events","Increased pain","Delayed suture removal"], correct:1,
+      fb:"Early mobility improves lung expansion and circulation, reducing the risk of atelectasis, pneumonia, and blood clots."}
+  ]}
+};
+
+/* ===================== TABS ===================== */
+const tabButtons = document.querySelectorAll('.nav-item');
+const panels = document.querySelectorAll('.panel');
+tabButtons.forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    tabButtons.forEach(b=>b.classList.remove('active'));
+    panels.forEach(p=>p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.tab).classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+});
+
+/* ===================== CHECKPOINT MODAL LOGIC ===================== */
+const overlay = document.getElementById('modalOverlay');
+const modalTitle = document.getElementById('modalTitle');
+const modalDots = document.getElementById('modalDots');
+const modalCount = document.getElementById('modalCount');
+const modalQText = document.getElementById('modalQText');
+const modalOpts = document.getElementById('modalOpts');
+const modalFeedback = document.getElementById('modalFeedback');
+const modalPrev = document.getElementById('modalPrev');
+const modalNext = document.getElementById('modalNext');
+const modalExit = document.getElementById('modalExit');
+const modalClose = document.getElementById('modalClose');
+
+let activeCP = null;
+let activeIndex = 0;
+let answeredThisOpen = {};
+
+function openCheckpoint(key){
+  activeCP = checkpoints[key];
+  activeIndex = 0;
+  answeredThisOpen = {};
+  modalTitle.textContent = activeCP.title;
+  renderDots();
+  renderQuestion();
+  overlay.classList.add('open');
+}
+
+function renderDots(){
+  modalDots.innerHTML = '';
+  activeCP.qs.forEach((_, i)=>{
+    const d = document.createElement('span');
+    d.className = 'd' + (i===activeIndex ? ' current' : (answeredThisOpen[i]!==undefined ? ' done' : ''));
+    modalDots.appendChild(d);
+  });
+}
+
+function renderQuestion(){
+  const total = activeCP.qs.length;
+  const qd = activeCP.qs[activeIndex];
+  modalCount.textContent = 'Question ' + (activeIndex+1) + ' of ' + total;
+  modalQText.textContent = qd.q;
+  modalOpts.innerHTML = '';
+  modalFeedback.classList.remove('show');
+  modalFeedback.textContent = qd.fb;
+
+  const alreadyAnswered = answeredThisOpen[activeIndex];
+
+  qd.opts.forEach((optText, oi)=>{
+    const b = document.createElement('button');
+    b.className = 'modal-opt';
+    b.textContent = optText;
+    if(alreadyAnswered !== undefined){
+      b.disabled = true;
+      if(oi === qd.correct) b.classList.add('correct');
+      else if(oi === alreadyAnswered) b.classList.add('incorrect');
+      modalFeedback.classList.add('show');
+    }
+    b.addEventListener('click', ()=>{
+      if(answeredThisOpen[activeIndex] !== undefined) return;
+      answeredThisOpen[activeIndex] = oi;
+      renderQuestion();
+      renderDots();
+    });
+    modalOpts.appendChild(b);
+  });
+
+  modalPrev.disabled = activeIndex === 0;
+  modalNext.disabled = activeIndex === total - 1;
+  renderDots();
+}
+
+modalPrev.addEventListener('click', ()=>{
+  if(activeIndex > 0){ activeIndex--; renderQuestion(); }
+});
+modalNext.addEventListener('click', ()=>{
+  if(activeIndex < activeCP.qs.length - 1){ activeIndex++; renderQuestion(); }
+});
+function closeModal(){
+  overlay.classList.remove('open');
+  activeCP = null;
+}
+modalExit.addEventListener('click', closeModal);
+modalClose.addEventListener('click', closeModal);
+overlay.addEventListener('click', (e)=>{ if(e.target === overlay) closeModal(); });
+document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape' && overlay.classList.contains('open')) closeModal(); });
+
+document.querySelectorAll('.cp-trigger').forEach(btn=>{
+  btn.addEventListener('click', ()=> openCheckpoint(btn.dataset.cp));
+});
+
+/* ===================== FLASHCARDS ===================== */
+const flashcardData = [
+  {cat:"CVAD", q:"What osmolarity threshold generally requires central rather than peripheral access?", a:"Solutions with osmolarity greater than about 900 mOsm/L (e.g., TPN, D10W, 3% NaCl, Mannitol 20%) require central venous access."},
+  {cat:"CVAD", q:"What is the key structural difference between a tunneled and non-tunneled CVC?", a:"Tunneled CVCs pass through a subcutaneous tunnel with a Dacron cuff before entering the vein, lowering infection risk; non-tunneled lines go directly into the vein with no cuff."},
+  {cat:"CVAD", q:"Where does a PICC tip terminate vs. a midline catheter?", a:"PICC tip ends in the superior vena cava (central circulation). A midline stops in the upper arm, before the axilla — it never reaches central circulation."},
+  {cat:"CVAD", q:"What needle must be used to access an implanted port, and why?", a:"A non-coring (Huber) needle — it slides between the fibers of the port septum instead of coring out a piece, preventing damage and leakage."},
+  {cat:"CVAD", q:"How do you identify a power-injectable port by touch?", a:"It has three small raised bumps arranged in a triangle on top of the port."},
+  {cat:"CVAD", q:"What confirms CVAD placement before first use?", a:"Radiologic confirmation — fluoroscopy during insertion of a tunneled line, or X-ray after a non-tunneled/PICC line placement."},
+  {cat:"CVAD", q:"How long is a bio-patch/antimicrobial dressing valid, vs. no patch?", a:"With an antimicrobial disc: 7 days. Without one: change within 3 days and apply a patch."},
+  {cat:"CVAD", q:"What syringe size is preferred when flushing a CVAD, and why?", a:"A 10-mL syringe — it generates lower pressure inside the catheter, reducing risk of catheter rupture or occlusion."},
+  {cat:"CVAD", q:"Positioning for suspected air embolism from a CVAD?", a:"Left side, head down (Trendelenburg or left lateral decubitus) to trap air in the right atrium; call rapid response, give high-flow O2."},
+  {cat:"CVAD", q:"Which lumen is used for blood draws on a triple-lumen catheter, and why?", a:"The distal lumen (largest, 16 gauge) — it exits farthest from the heart, giving the best flow for sampling and CVP monitoring."},
+  {cat:"CVAD", q:"Rule about drawing blood when a line is infusing TPN?", a:"Never draw blood samples from a lumen infusing parenteral nutrition — it increases CLABSI risk."},
+  {cat:"CVAD", q:"What securement options can stabilize a CVAD?", a:"Sutures, or a sutureless device such as a stat-lock."},
+  {cat:"CVAD", q:"What must be documented in the EMR regarding every CVAD?", a:"The catheter tip location, per the initial radiologic placement verification."},
+  {cat:"CVAD", q:"How is upper arm circumference measured for a PICC, and what does an increase suggest?", a:"10 cm above the antecubital fossa each shift; a 3-cm increase over baseline may indicate DVT-related edema."},
+  {cat:"CVAD", q:"Difference between catheter migration and dislodgement?", a:"Dislodgement means the catheter has come out (partially or fully) from the insertion site. Migration means the catheter tip has moved from its original internal position (e.g., into the heart), sometimes causing gurgling sounds or new dysrhythmias."},
+  {cat:"CVAD", q:"Should an externally migrated catheter ever be readvanced by the nurse?", a:"No — a catheter that has migrated externally should not be readvanced; notify the provider."},
+  {cat:"CVAD", q:"What must always happen before de-accessing an implanted port?", a:"The port must always be heparin locked prior to de-accessing."},
+  {cat:"Chest Tube", q:"To what level is the water-seal chamber filled?", a:"2 cm with sterile water."},
+  {cat:"Chest Tube", q:"What is the typical suction regulator setting unless ordered otherwise?", a:"-20 cm H2O."},
+  {cat:"Chest Tube", q:"Intermittent vs. continuous bubbling in the water seal — what's the difference?", a:"Intermittent bubbling is normal (especially early in pneumothorax treatment). Continuous bubbling indicates an air leak."},
+  {cat:"Chest Tube", q:"What does 'tidaling' mean and what does its absence suggest?", a:"Tidaling = water level rising/falling with respirations, confirming the system is connected and working. Absence suggests lung re-expansion OR an obstruction/kink."},
+  {cat:"Chest Tube", q:"What should you do if a chest tube disconnects from the drainage system?", a:"Immediately place the open tubing end into about 2 cm of sterile water to create a temporary water seal, then reconnect or replace the system and notify the provider."},
+  {cat:"Chest Tube", q:"What should you do if the chest tube is pulled out of the patient?", a:"Apply a sterile occlusive dressing taped on three sides (to vent air and prevent tension pneumothorax), assess for respiratory distress, call the provider STAT."},
+  {cat:"Chest Tube", q:"What drainage rate should prompt provider notification for possible vascular injury?", a:"Bright red drainage greater than about 150-200 mL/hr (or a trauma threshold of >200 mL/hr / initial output >1500 mL)."},
+  {cat:"Chest Tube", q:"Should you ever 'milk' or 'strip' chest tube tubing?", a:"No — not without a specific order. It creates dangerously high intraluminal pressure that can cause a tension pneumothorax."},
+  {cat:"Chest Tube", q:"What position should the drainage system always be kept in?", a:"Upright and below the level of the patient's chest, to prevent fluid backflow."},
+  {cat:"Chest Tube", q:"What should the patient do at the moment the chest tube is removed?", a:"Take a deep breath and hold it, or perform a Valsalva maneuver — raises intrathoracic pressure and helps prevent air from re-entering the pleural space."},
+  {cat:"Chest Tube", q:"What are the readiness criteria for chest tube removal?", a:"Improved respiratory status, symmetric chest rise/fall, bilateral breath sounds, decreased drainage, no bubbling/air leak in water seal, improved chest X-ray."},
+  {cat:"Respiratory", q:"What primarily drives respiratory rate and depth?", a:"Rising CO2 (and falling pH) sensed by central and peripheral chemoreceptors — not low oxygen."},
+  {cat:"Respiratory", q:"Tension pneumothorax — which way does the trachea shift?", a:"Away from the affected (collapsed) side, due to rising pressure pushing the mediastinum toward the unaffected side."},
+  {cat:"Respiratory", q:"Which lung sound is heard ONLY on inspiration and suggests upper airway obstruction?", a:"Stridor."},
+  {cat:"Respiratory", q:"Fine, popping crackles on inspiration associated with fluid in the alveoli — name and cause?", a:"Rales (fine crackles) — seen in heart failure or pneumonia."},
+  {cat:"Respiratory", q:"What is the classic symptom cluster for pulmonary embolism?", a:"Sudden dyspnea, pleuritic chest pain, and tachycardia — often with a sense of impending doom."},
+  {cat:"Respiratory", q:"What test is the gold-standard imaging for diagnosing PE?", a:"CT pulmonary angiography (CTPA)."},
+  {cat:"Respiratory", q:"What is a transudate pleural effusion usually caused by?", a:"Heart failure — fluid crosses intact capillary walls due to hydrostatic/oncotic pressure imbalance."},
+  {cat:"Airway", q:"Who can safely have an OPA inserted?", a:"Only unconscious patients with no gag reflex."},
+  {cat:"Airway", q:"What are the contraindications for a nasopharyngeal airway (NPA)?", a:"Facial trauma, suspected basilar skull fracture, or coagulopathy."},
+  {cat:"Airway", q:"What is the target cuff pressure range for an ETT or trach tube?", a:"20-30 cm H2O, checked every 8-12 hours."},
+  {cat:"Airway", q:"Why should you never cut regular gauze for a trach dressing?", a:"Loose threads can be aspirated or become embedded in the stoma, causing irritation or infection."},
+  {cat:"Airway", q:"What emergency equipment should always be at a tracheostomy patient's bedside?", a:"Obturator, suction equipment, oxygen, manual ventilation bag, and a spare trach tube (same size and one size smaller)."},
+  {cat:"Wound", q:"Name the pressure injury stages plus 2 special categories.", a:"Stage 1 (nonblanchable erythema), Stage 2 (partial-thickness), Stage 3 (full-thickness, no exposed bone/tendon/muscle), Stage 4 (full-thickness with exposed bone/tendon/muscle), Unstageable (obscured by slough/eschar), Deep tissue pressure injury (intact skin, deep discoloration)."},
+  {cat:"Wound", q:"Rule about removing dry, stable heel eschar?", a:"Do not remove it unless there are signs of infection or drainage — it serves as a natural biological cover."},
+  {cat:"Wound", q:"Should you ever reverse-stage a healing pressure injury?", a:"No — document the tissue type and measurements to show healing progress instead of 'downstaging' it."},
+  {cat:"Wound", q:"Dry wound vs. draining wound — which dressing category for each?", a:"Dry wound: ADD moisture (hydrogel). Draining wound: ABSORB moisture (foam or alginate). Clean/healing wound: MAINTAIN moisture (hydrocolloid/film)."},
+  {cat:"Wound", q:"How do you clean a wound with approximated edges vs. unapproximated edges?", a:"Approximated (closed incision): clean top to bottom / center outward. Unapproximated (open wound): clean in circles from center outward."},
+  {cat:"Wound", q:"What postoperative drainage amount should prompt provider notification?", a:"Drainage exceeding 500 mL within 24 hours."},
+  {cat:"Wound", q:"Which debridement methods are 'selective' (only remove dead tissue)?", a:"Autolytic, enzymatic, and biologic (maggot) debridement are selective. Mechanical and surgical debridement are non-selective."},
+  {cat:"Wound", q:"What does a sudden DECREASE in output from a Jackson-Pratt drain suggest?", a:"Possible clot or kink obstructing the drain — notify the provider."},
+  {cat:"Wound", q:"Primary vs. secondary vs. tertiary intention healing — quick definitions.", a:"Primary: edges approximated, minimal tissue loss (sutures/staples). Secondary: large tissue loss, heals from base up via granulation. Tertiary: delayed primary closure — left open, then surgically closed once clean."},
+  {cat:"Wound", q:"What indicates a wound is infected based on drainage?", a:"Purulent drainage — thick, yellow/green/brown, often with odor; report and anticipate a wound culture."},
+  {cat:"Priority", q:"Signs of tension pneumothorax?", a:"Tracheal deviation away from the affected side, absent breath sounds on that side, hyperresonance, hypotension, JVD, severe respiratory distress."},
+  {cat:"Priority", q:"What is the emergency temporizing measure for a disconnected chest tube?", a:"Submerge the open tubing end in about 2 cm of sterile water to create a temporary water seal."},
+  {cat:"Priority", q:"What is the positioning for suspected CVAD air embolism?", a:"Left side, head down (Trendelenburg/left lateral decubitus), clamp the hub, call rapid response, give high-flow O2."},
+  {cat:"Priority", q:"First action when a vesicant medication extravasates?", a:"Stop the infusion immediately, then aspirate remaining medication before applying compress and notifying the provider."}
+];
+
+const categories = ["All", ...new Set(flashcardData.map(c=>c.cat))];
+const fcControls = document.getElementById('fcControls');
+const fcGrid = document.getElementById('fcGrid');
+let activeCat = "All";
+
+categories.forEach(cat=>{
+  const b = document.createElement('button');
+  b.className = 'fc-filter' + (cat==="All" ? ' active' : '');
+  b.textContent = cat;
+  b.addEventListener('click', ()=>{
+    activeCat = cat;
+    document.querySelectorAll('.fc-filter').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    renderFlashcards();
+  });
+  fcControls.appendChild(b);
+});
+
+function renderFlashcards(){
+  fcGrid.innerHTML = '';
+  const filtered = activeCat === "All" ? flashcardData : flashcardData.filter(c=>c.cat===activeCat);
+  filtered.forEach(card=>{
+    const wrap = document.createElement('div');
+    wrap.className = 'flashcard';
+    wrap.innerHTML = `
+      <div class="inner">
+        <div class="face front">
+          <div class="cat">${card.cat}</div>
+          <div class="qtext">${card.q}</div>
+          <div class="flip-hint">Tap to flip &rarr;</div>
+        </div>
+        <div class="face back">
+          <div class="cat">Answer</div>
+          <div class="atext">${card.a}</div>
+          <div class="flip-hint">&larr; Tap to flip back</div>
+        </div>
+      </div>`;
+    wrap.addEventListener('click', ()=>wrap.classList.toggle('flipped'));
+    fcGrid.appendChild(wrap);
+  });
+}
+renderFlashcards();
+</script>
+</body>
+</html>
